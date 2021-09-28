@@ -12,6 +12,10 @@
 #include "vbo.h"
 #include "ebo.h"
 
+const unsigned int width = 800;
+const unsigned int height = 800;
+const std::string title = "RuneScape Clone";
+
 // Vertices coordinates
 GLfloat vertices[] =
 { //               COORDINATES                  /     COLORS           //
@@ -46,13 +50,8 @@ int main()
 	// This means we'll only use the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Initial window size
-	auto title = "RS Clone";
-	int sizeX = 720;
-	int sizeY = 720;
-
 	// Create a new window object
-	GLFWwindow* window = glfwCreateWindow(sizeX, sizeY, title, NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 
 	// If the window can't be created
 	if (window == NULL)
@@ -72,7 +71,7 @@ int main()
 	gladLoadGL(glfwGetProcAddress);
 
 	// Create the viewport
-	glViewport(0, 0, sizeX, sizeY);
+	glViewport(0, 0, width, height);
 
 	///////// Draw stuff
 
@@ -84,22 +83,57 @@ int main()
 
 	vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
 	vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+	vao.LinkAttrib(vbo, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+
 	vao.Unbind();
 	vbo.Unbind();
 	ebo.Unbind();
 
 	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
 
+	// Variables that help the rotation of the pyramid
+	float rotation = 0.0f;
+	double prevTime = glfwGetTime();
+
+	glEnable(GL_DEPTH_TEST);
+
 	// Run the main window loop
 	while (!glfwWindowShouldClose(window))
 	{
 		// Handle all GLFW events
 		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shaderProgram.Activate();
+
+		// Simple timer
+		double crntTime = glfwGetTime();
+		if (crntTime - prevTime >= 1 / 60)
+		{
+			rotation += 0.5f;
+			prevTime = crntTime;
+		}
+
+		glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 proj = glm::mat4(1.0f);
+
+
+		// Assigns different transformations to each matrix
+		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
+		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+
+		int modelPos = glGetUniformLocation(shaderProgram.ID, "model");
+		glUniformMatrix4fv(modelPos, 1, GL_FALSE, glm::value_ptr(model));
+		int viewPos = glGetUniformLocation(shaderProgram.ID, "view");
+		glUniformMatrix4fv(viewPos, 1, GL_FALSE, glm::value_ptr(view));
+		int projPos = glGetUniformLocation(shaderProgram.ID, "proj");
+		glUniformMatrix4fv(projPos, 1, GL_FALSE, glm::value_ptr(proj));
+
+
 		glUniform1f(uniID, 0.5f);
 		vao.Bind();
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
