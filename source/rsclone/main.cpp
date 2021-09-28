@@ -12,6 +12,8 @@
 #include "vbo.h"
 #include "ebo.h"
 
+#include "camera.h"
+
 const unsigned int width = 800;
 const unsigned int height = 800;
 const std::string title = "RuneScape Clone";
@@ -89,13 +91,9 @@ int main()
 	vbo.Unbind();
 	ebo.Unbind();
 
-	GLuint uniID = glGetUniformLocation(shaderProgram.ID, "scale");
-
-	// Variables that help the rotation of the pyramid
-	float rotation = 0.0f;
-	double prevTime = glfwGetTime();
-
 	glEnable(GL_DEPTH_TEST);
+
+	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
 	// Run the main window loop
 	while (!glfwWindowShouldClose(window))
@@ -105,33 +103,9 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shaderProgram.Activate();
 
-		// Simple timer
-		double crntTime = glfwGetTime();
-		if (crntTime - prevTime >= 1 / 60)
-		{
-			rotation += 0.5f;
-			prevTime = crntTime;
-		}
+		camera.Inputs(window);
+		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
 
-		glm::mat4 model = glm::mat4(1.0f);
-		glm::mat4 view = glm::mat4(1.0f);
-		glm::mat4 proj = glm::mat4(1.0f);
-
-
-		// Assigns different transformations to each matrix
-		model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::translate(view, glm::vec3(0.0f, -0.5f, -2.0f));
-		proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
-
-		int modelPos = glGetUniformLocation(shaderProgram.ID, "model");
-		glUniformMatrix4fv(modelPos, 1, GL_FALSE, glm::value_ptr(model));
-		int viewPos = glGetUniformLocation(shaderProgram.ID, "view");
-		glUniformMatrix4fv(viewPos, 1, GL_FALSE, glm::value_ptr(view));
-		int projPos = glGetUniformLocation(shaderProgram.ID, "proj");
-		glUniformMatrix4fv(projPos, 1, GL_FALSE, glm::value_ptr(proj));
-
-
-		glUniform1f(uniID, 0.5f);
 		vao.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
