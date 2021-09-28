@@ -3,3 +3,6 @@
 *.mxp
 assets/assets.mxp
 assets/AutoBackup01.max
+
+source/rsclone/.vs/
+source/rsclone/x64/
