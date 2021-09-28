@@ -4,5 +4,5 @@
 assets/assets.mxp
 assets/AutoBackup01.max
 
-source/rsclone/.vs/
-source/rsclone/x64/
+source/rsclone/.vs/**
+source/rsclone/x64/**
