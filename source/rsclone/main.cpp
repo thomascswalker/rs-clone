@@ -107,7 +107,7 @@ int main()
 		nbFrames++;
 		if (currentTime - lastTime >= 0.1) {
 			// printf and reset
-			printf("%f ms/frame\n", 1000.0 / double(nbFrames));
+			//printf("%f ms/frame\n", 1000.0 / double(nbFrames));
 			nbFrames = 0;
 			lastTime += 1.0;
 		}
