@@ -95,11 +95,25 @@ int main()
 
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
+	// For speed computation
+	double lastTime = glfwGetTime();
+	int nbFrames = 0;
+
 	// Run the main window loop
 	while (!glfwWindowShouldClose(window))
 	{
+		// Measure speed
+		double currentTime = glfwGetTime();
+		nbFrames++;
+		if (currentTime - lastTime >= 0.1) {
+			// printf and reset
+			printf("%f ms/frame\n", 1000.0 / double(nbFrames));
+			nbFrames = 0;
+			lastTime += 1.0;
+		}
+
 		// Handle all GLFW events
-		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shaderProgram.Activate();
 
