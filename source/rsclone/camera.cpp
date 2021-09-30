@@ -26,10 +26,36 @@ void Camera::Matrix(float FOVdeg, float nearPlane, float farPlane, Shader& shade
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(projection * view));
 }
 
+glm::mat4 getMatrix(const glm::vec3& X, const glm::vec3& Y, const glm::vec3& Z, const glm::vec3& T)
+{
+	return glm::mat4(
+		glm::vec4(X, 0.0f),
+		glm::vec4(Y, 0.0f),
+		glm::vec4(Z, 0.0f),
+		glm::vec4(T, 1.0f));
+}
+
+glm::vec3 Camera::RotateAround(float yaw) {
+	glm::vec4 cp;
+	float hoverRadius = 5.0f;
+	cp.x = hoverRadius * sin(glm::radians(yaw));
+	cp.z = hoverRadius * cos(glm::radians(yaw));
+
+	return glm::vec3(Target.x + cp.x,
+					 Target.y + 3.0f,
+					 Target.z + cp.z + 20.0f);
+}
+
+// https://learnopengl.com/Getting-started/Camera
 
 
 void Camera::Inputs(GLFWwindow* window)
 {
+	const float radius = 10.0f;
+	float camX = sin(glfwGetTime()) * radius;
+	float camZ = cos(glfwGetTime()) * radius;
+	glm::mat4 view;
+	view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
@@ -37,17 +63,13 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		//https://gamedev.stackexchange.com/questions/20758/how-can-i-orbit-a-camera-about-its-target-point
-		float x = Distance * -sinf(glm::radians(Angle) * cosf(glm::radians(Angle)));
-		//float x = Distance * cos(Angle);
-		//float z = Distance * sin(Angle);
+		glm::vec3 cameraDirection = glm::normalize(Position - Target);
+		glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
+		glm::vec3 cameraRight = glm::normalize(glm::cross(up, cameraDirection));
+		glm::vec3 cameraUp = glm::cross(cameraDirection, cameraRight);
 
-		//Position.x = x;
-		//Position.z = z;
 
-		//Angle -= .01f;
-		//printf("X: %f, Y: %f\n", x, z);
-		//printf("Angle: %f\n", float(Angle));
+		Angle -= speed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
@@ -55,14 +77,11 @@ void Camera::Inputs(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		float x = Distance * cos(Angle);
-		float z = Distance * sin(Angle);
+		glm::vec3 offset(0, 3, 20);
+		glm::vec3 cp = glm::rotateY(Position, Angle);
+		Position = Target + cp + offset;
+		Angle += speed;
 
-		Position.x = x;
-		Position.z = z;
-
-		Angle += .01f;
-		printf("X: %f, Y: %f\n", x, z);
 		printf("Angle: %f\n", float(Angle));
 	}
 }

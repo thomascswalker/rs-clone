@@ -105,25 +105,25 @@ int main()
 		// Measure speed
 		double currentTime = glfwGetTime();
 		nbFrames++;
-		if (currentTime - lastTime >= 0.1) {
+		if (currentTime - lastTime >= 0.01) {
 			// printf and reset
 			//printf("%f ms/frame\n", 1000.0 / double(nbFrames));
 			nbFrames = 0;
 			lastTime += 1.0;
+
+			// Handle all GLFW events
+			glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			shaderProgram.Activate();
+
+			camera.Inputs(window);
+			camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
+
+			vao.Bind();
+			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+			glfwSwapBuffers(window);
 		}
-
-		// Handle all GLFW events
-		glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		shaderProgram.Activate();
-
-		camera.Inputs(window);
-		camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
-
-		vao.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
-
-		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
 

@@ -22,7 +22,9 @@ public:
 	// Target position
 	int Distance = 5;
 	float Angle = 0.0f;
-	glm::vec3 Target = glm::vec3(0.0f, 0.0f, -1.0f);
+	glm::vec3 Target = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	glm::vec3 RotateAround(float yaw);
 
 	// Prevents the camera from jumping around when first clicking left click
 	bool firstClick = true;
@@ -32,8 +34,7 @@ public:
 	int height;
 
 	// Adjust the speed of the camera and it's sensitivity when looking around
-	int speedMult = 40;
-	float speed = 0.5 / speedMult;
+	float speed = 0.01f;
 	float sensitivity = 50.0f;
 
 	// Camera constructor to set up initial values
