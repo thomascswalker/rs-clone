@@ -21,7 +21,7 @@ const std::string title = "RuneScape Clone";
 // Vertices coordinates
 GLfloat vertices[] =
 { //               COORDINATES                  /     COLORS           //
-	-0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
+	-2.0f, -2.0f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
 	 0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower right corner
 	 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     1.0f, 0.6f,  0.32f, // Upper corner
 	-0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner left
@@ -110,20 +110,20 @@ int main()
 			//printf("%f ms/frame\n", 1000.0 / double(nbFrames));
 			nbFrames = 0;
 			lastTime += 1.0;
-
-			// Handle all GLFW events
-			glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			shaderProgram.Activate();
-
-			camera.Inputs(window);
-			camera.Matrix(45.0f, 0.1f, 100.0f, shaderProgram, "camMatrix");
-
-			vao.Bind();
-			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
-
-			glfwSwapBuffers(window);
 		}
+		// Handle all GLFW events
+		glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shaderProgram.Activate();
+
+		camera.Inputs(window);
+		camera.Matrix(shaderProgram, "camMatrix");
+
+		vao.Bind();
+		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+
+		glfwSwapBuffers(window);
+		
 		glfwPollEvents();
 	}
 
