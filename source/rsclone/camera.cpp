@@ -1,7 +1,5 @@
 #include "camera.h"
 
-
-
 Camera::Camera(int width, int height, glm::vec3 position)
 {
 	Camera::width = width;
@@ -30,16 +28,14 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(CameraMatrix));
 }
 
-
-// https://learnopengl.com/Getting-started/Camera
 glm::mat4 Camera::GetMatrix() {
+	// https://learnopengl.com/Getting-started/Camera
 	float camX = sin(glm::radians(Angle)) * Distance;
 	float camZ = cos(glm::radians(Angle)) * Distance;
 	return glm::lookAt(glm::vec3(camX, 0.0, camZ),
 					   glm::vec3(0.0, 0.0, 0.0),
 					   glm::vec3(0.0, 1.0, 0.0));
 }
-
 
 void Camera::Inputs(GLFWwindow* window)
 {
