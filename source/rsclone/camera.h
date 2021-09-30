@@ -26,10 +26,10 @@ public:
 	void Inputs(GLFWwindow* window);
 
 	// Stores the main vectors of the camera
-	glm::vec3 Position;
-	glm::vec3 Orientation = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 Up = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 CameraMatrix = glm::mat4(1.0f);
+	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::mat4 cameraMatrix = glm::mat4(1.0f);
+	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	// Target position
 	int distance = 5;
@@ -38,10 +38,10 @@ public:
 	float farClip = 1000.0f;
 
 	float hAngle = 0.0f;
-	float vAngle = 0.0f;
+	float vAngle = 90.0f;
 
 
-	glm::vec3 Target = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	// Stores the width and height of the window
 	int width;
