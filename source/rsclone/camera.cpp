@@ -30,9 +30,10 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 
 glm::mat4 Camera::GetMatrix() {
 	// https://learnopengl.com/Getting-started/Camera
-	float camX = sin(glm::radians(Angle)) * Distance;
-	float camZ = cos(glm::radians(Angle)) * Distance;
-	return glm::lookAt(glm::vec3(camX, 0.0, camZ),
+	float camX = sin(glm::radians(hAngle)) * distance;
+	float camY = cosf(glm::radians(vAngle)) * distance;
+	float camZ = cos(glm::radians(hAngle)) * distance;
+	return glm::lookAt(glm::vec3(camX, camY, camZ),
 					   glm::vec3(0.0, 0.0, 0.0),
 					   glm::vec3(0.0, 1.0, 0.0));
 }
@@ -42,32 +43,46 @@ void Camera::Inputs(GLFWwindow* window)
 	// Handles key inputs
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		Position += speed * Orientation;
+		glm::mat4 view = GetMatrix();
+		UpdateMatrix(view, fov, nearClip, farClip);
+		vAngle += speed;
+		if (abs(vAngle) >= 180.0f)
+		{
+			vAngle = 180.0f;
+		}
+		printf("Angle: %f\n", vAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
 		UpdateMatrix(view, fov, nearClip, farClip);
-		Angle -= speed;
-		if (abs(Angle) >= 360.0f)
+		hAngle -= speed;
+		if (abs(hAngle) >= 360.0f)
 		{
-			Angle = 0.0f;
+			hAngle = 0.0f;
 		}
-		printf("Angle: %f\n", Angle);
+		printf("Angle: %f\n", hAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		Position += speed * -Orientation;
+		glm::mat4 view = GetMatrix();
+		UpdateMatrix(view, fov, nearClip, farClip);
+		vAngle -= speed;
+		if (abs(vAngle) <= 0.0f)
+		{
+			vAngle = 0.0f;
+		}
+		printf("Angle: %f\n", vAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
 		UpdateMatrix(view, fov, nearClip, farClip);
-		Angle += speed;
-		if (abs(Angle) >= 360.0f)
+		hAngle += speed;
+		if (abs(hAngle) >= 360.0f)
 		{
-			Angle = 0.0f;
+			hAngle = 0.0f;
 		}
-		printf("Angle: %f\n", Angle);
+		printf("Angle: %f\n", hAngle);
 	}
 }

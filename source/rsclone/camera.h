@@ -32,11 +32,15 @@ public:
 	glm::mat4 CameraMatrix = glm::mat4(1.0f);
 
 	// Target position
-	int Distance = 5;
+	int distance = 5;
 	float fov = 50.0f;
 	float nearClip = 1.0f;
 	float farClip = 1000.0f;
-	float Angle = 0.0f;
+
+	float hAngle = 0.0f;
+	float vAngle = 0.0f;
+
+
 	glm::vec3 Target = glm::vec3(0.0f, 0.0f, 0.0f);
 
 	// Stores the width and height of the window
