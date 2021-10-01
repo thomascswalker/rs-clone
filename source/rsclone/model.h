@@ -1,11 +1,10 @@
 #ifndef MODEL_CLASS_H
 #define MODEL_CLASS_H
 
-#include <json/json.h>
-#include "Mesh.h"
+#include <nlohmann/json.hpp>
+#include"Mesh.h"
 
 using json = nlohmann::json;
-
 
 class Model
 {
@@ -48,8 +47,8 @@ private:
 	// Assembles all the floats into vertices
 	std::vector<Vertex> assembleVertices
 	(
-		std::vector<glm::vec3> positions, 
-		std::vector<glm::vec3> normals, 
+		std::vector<glm::vec3> positions,
+		std::vector<glm::vec3> normals,
 		std::vector<glm::vec2> texUVs
 	);
 
