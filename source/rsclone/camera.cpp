@@ -1,21 +1,23 @@
 #include "camera.h"
 
-Camera::Camera(int width, int height, glm::vec3 position)
+Camera::Camera(int width, int height)
 {
 	Camera::width = width;
 	Camera::height = height;
 
 	glm::mat4 view = GetMatrix();
-	UpdateMatrix(view, fov, nearClip, farClip);
+	UpdateMatrix(view);
 }
 
-void Camera::UpdateMatrix(glm::mat4 view, float FOVdeg, float nearPlane, float farPlane)
+void Camera::UpdateMatrix(glm::mat4 view)
 {
+	ProcessMouseScroll(0);
+
 	// Initializes matrices since otherwise they will be the null matrix
 	glm::mat4 projection = glm::mat4(1.0f);
 
 	// Adds perspective to the scene
-	projection = glm::perspective(glm::radians(FOVdeg), (float)width / height, nearPlane, farPlane);
+	projection = glm::perspective(glm::radians(fov), (float)width / height, nearClip, farClip);
 
 	// Sets new camera matrix
 	cameraMatrix = projection * view;
@@ -23,6 +25,8 @@ void Camera::UpdateMatrix(glm::mat4 view, float FOVdeg, float nearPlane, float f
 
 void Camera::Matrix(Shader& shader, const char* uniform)
 {
+	
+
 	// Exports camera matrix
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
@@ -55,7 +59,7 @@ void Camera::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
-		UpdateMatrix(view, fov, nearClip, farClip);
+		UpdateMatrix(view);
 		vAngle -= speed;
 		if (vAngle <= 90.0f)
 		{
@@ -65,7 +69,7 @@ void Camera::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
-		UpdateMatrix(view, fov, nearClip, farClip);
+		UpdateMatrix(view);
 		hAngle += speed;
 		if (abs(hAngle) >= 360.0f)
 		{
@@ -75,7 +79,7 @@ void Camera::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
-		UpdateMatrix(view, fov, nearClip, farClip);
+		UpdateMatrix(view);
 		vAngle += speed;
 		if (vAngle >= 180.0f)
 		{
@@ -85,11 +89,20 @@ void Camera::Inputs(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		glm::mat4 view = GetMatrix();
-		UpdateMatrix(view, fov, nearClip, farClip);
+		UpdateMatrix(view);
 		hAngle -= speed;
 		if (abs(hAngle) >= 360.0f)
 		{
 			hAngle = 0.0f;
 		}
 	}
+}
+
+void Camera::ProcessMouseScroll(double delta)
+{
+	distance -= (float)delta;
+	if (distance < 1.0f)
+		distance = 1.0f;
+	if (distance > 500.0f)
+		distance = 500.0f;
 }
