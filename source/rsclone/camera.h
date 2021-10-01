@@ -15,15 +15,16 @@ class Camera
 {
 public:
 	// Camera constructor to set up initial values
-	Camera(int width, int height, glm::vec3 position);
+	Camera(int width, int height);
 
 	// Updates and exports the camera matrix to the Vertex Shader
 	void Matrix(Shader& shader, const char* uniform);
-	void UpdateMatrix(glm::mat4 view, float FOVdeg, float nearPlane, float farPlane);
+	void UpdateMatrix(glm::mat4 view);
 	glm::mat4 GetMatrix();
 
 	// Handles camera inputs
 	void Inputs(GLFWwindow* window);
+	void ProcessMouseScroll(double delta);
 
 	// Stores the main vectors of the camera
 	glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -32,7 +33,7 @@ public:
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	// Target position
-	int distance = 10;
+	int distance = 25;
 	float fov = 50.0f;
 	float nearClip = 1.0f;
 	float farClip = 1000.0f;
