@@ -40,6 +40,7 @@ int main()
 
 	//Load GLAD so it configures OpenGL
 	gladLoadGL(glfwGetProcAddress);
+
 	// Specify the viewport of OpenGL in the Window
 	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
@@ -60,17 +61,9 @@ int main()
 	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
 
-	
-	/*
-	* I'm doing this relative path thing in order to centralize all the resources into one folder and not
-	* duplicate them between tutorial folders. You can just copy paste the resources from the 'Resources'
-	* folder and then give a relative path from this folder to whatever resource you want to get to.
-	* Also note that this requires C++17, so go to Project Properties, C/C++, Language, and select C++17
-	*/
+	// Load in a model
 	std::string parentDir = (std::filesystem::current_path().std::filesystem::path::parent_path()).string();
 	std::string modelPath = "/assets/prod/scene.gltf";
-	
-	// Load in a model
 	Model model((parentDir + modelPath).c_str());
 
 	// Specify the color of the background
@@ -91,11 +84,10 @@ int main()
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
+
 		// Take care of all GLFW events
 		glfwPollEvents();
 	}
-
-
 
 	// Delete all the objects we've created
 	shaderProgram.Delete();
@@ -119,7 +111,6 @@ void ProcessInput(GLFWwindow* window)
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
-	camera.Inputs(window);
 }
 
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height)

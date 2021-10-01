@@ -11,6 +11,8 @@ Camera::Camera(int width, int height)
 
 void Camera::UpdateMatrix(glm::mat4 view)
 {
+	ProcessMouseScroll(0);
+
 	// Initializes matrices since otherwise they will be the null matrix
 	glm::mat4 projection = glm::mat4(1.0f);
 
@@ -23,6 +25,8 @@ void Camera::UpdateMatrix(glm::mat4 view)
 
 void Camera::Matrix(Shader& shader, const char* uniform)
 {
+	
+
 	// Exports camera matrix
 	glUniformMatrix4fv(glGetUniformLocation(shader.ID, uniform), 1, GL_FALSE, glm::value_ptr(cameraMatrix));
 }
