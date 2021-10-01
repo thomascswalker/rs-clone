@@ -1,153 +1,110 @@
-#include <iostream>
-#include <string>
-#include <glad/gl.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "shaderclass.h"
-#include "vao.h"
-#include "vbo.h"
-#include "ebo.h"
-
-#include "camera.h"
+#include <filesystem>
+#include "Model.h"
 
 const unsigned int width = 800;
 const unsigned int height = 800;
-const std::string title = "RuneScape Clone";
-
-// Vertices coordinates
-//GLfloat vertices[] =
-//{ //               COORDINATES                  /     COLORS           //
-//	-0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
-//	 0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower right corner
-//	 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     1.0f, 0.6f,  0.32f, // Upper corner
-//	-0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner left
-//	 0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner right
-//	 0.0f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f  // Inner down
-//};
-
-GLfloat vertices[] =
-{ //               COORDINATES                  /     COLORS           //
-	-1.0f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f, // Lower left corner
-	 0.5f, -0.5f * float(sqrt(3)) * 1 / 3, 1.0f,     0.8f, 0.3f,  0.02f, // Lower right corner
-	 0.0f,  0.5f * float(sqrt(3)) * 2 / 3, 0.0f,     1.0f, 0.6f,  0.32f, // Upper corner
-	-1.0f, 0.5f * float(sqrt(3)) * 1 / 6, 0.0f,     0.9f, 0.45f, 0.17f, // Inner left
-	 0.25f, 0.5f * float(sqrt(3)) * 1 / 6, 1.0f,     0.9f, 0.45f, 0.17f, // Inner right
-	 0.0f, -0.5f * float(sqrt(3)) * 1 / 3, 0.0f,     0.8f, 0.3f,  0.02f  // Inner down
-};
-
-// Indices for vertices order
-GLuint indices[] =
-{
-	0, 3, 5, // Lower left triangle
-	3, 2, 4, // Lower right triangle
-	5, 4, 1 // Upper triangle
-};
-
 
 int main()
 {
 	// Initialize GLFW
 	glfwInit();
 
-	// Tell GLFW what version of OpenGL we're using
-	// Currently using OpenGL 3.3
+	// Tell GLFW what version of OpenGL we are using 
+	// In this case we are using OpenGL 3.3
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-
 	// Tell GLFW we are using the CORE profile
-	// This means we'll only use the modern functions
+	// So that means we only have the modern functions
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	// Create a new window object
-	GLFWwindow* window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-
-	// If the window can't be created
+	// Create a GLFWwindow object of 800 by 800 pixels, naming it "YoutubeOpenGL"
+	GLFWwindow* window = glfwCreateWindow(width, height, "RS Clone", NULL, NULL);
+	// Error check if the window fails to create
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
-
-		// Terminate GLFW
 		glfwTerminate();
 		return -1;
 	}
-
-
-	// Set the current GLFW context to the main window
+	// Introduce the window into the current context
 	glfwMakeContextCurrent(window);
 
-	// Load GLAD so it configures OpenGL
+	//Load GLAD so it configures OpenGL
 	gladLoadGL(glfwGetProcAddress);
-
-	// Create the viewport
+	// Specify the viewport of OpenGL in the Window
+	// In this case the viewport goes from x = 0, y = 0, to x = 800, y = 800
 	glViewport(0, 0, width, height);
 
-	///////// Draw stuff
 
+
+
+
+	// Generates Shader object using shaders default.vert and default.frag
 	Shader shaderProgram("default.vert", "default.frag");
-	VAO vao;
-	vao.Bind();
-	VBO vbo(vertices, sizeof(vertices));
-	EBO ebo(indices, sizeof(indices));
 
-	vao.LinkAttrib(vbo, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-	vao.LinkAttrib(vbo, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-	vao.LinkAttrib(vbo, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	// Take care of all the light related things
+	glm::vec4 lightColor = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	glm::vec3 lightPos = glm::vec3(0.5f, 0.5f, 0.5f);
+	glm::mat4 lightModel = glm::mat4(1.0f);
+	lightModel = glm::translate(lightModel, lightPos);
 
-	vao.Unbind();
-	vbo.Unbind();
-	ebo.Unbind();
+	shaderProgram.Activate();
+	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
+	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
+
+
+	
+
+	// Enables the Depth Buffer
 	glEnable(GL_DEPTH_TEST);
 
+	// Creates camera object
 	Camera camera(width, height, glm::vec3(0.0f, 0.0f, 2.0f));
 
-	// For speed computation
-	double lastTime = glfwGetTime();
-	int nbFrames = 0;
 
-	// Run the main window loop
+	/*
+	* I'm doing this relative path thing in order to centralize all the resources into one folder and not
+	* duplicate them between tutorial folders. You can just copy paste the resources from the 'Resources'
+	* folder and then give a relative path from this folder to whatever resource you want to get to.
+	* Also note that this requires C++17, so go to Project Properties, C/C++, Language, and select C++17
+	*/
+	std::string parentDir = (std::filesystem::current_path().std::filesystem::path::parent_path()).string();
+	std::string modelPath = "/assets/prod/scene.gltf";
+	
+	// Load in a model
+	Model model((parentDir + modelPath).c_str());
+
+	// Original code from the tutorial
+	// Model model("models/bunny/scene.gltf");
+
+	// Main while loop
 	while (!glfwWindowShouldClose(window))
 	{
-		// Measure speed
-		double currentTime = glfwGetTime();
-		nbFrames++;
-		if (currentTime - lastTime >= 0.01) {
-			// printf and reset
-			//printf("%f ms/frame\n", 1000.0 / double(nbFrames));
-			nbFrames = 0;
-			lastTime += 1.0;
-		}
-		// Handle all GLFW events
-		glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
+		// Specify the color of the background
+		glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+		// Clean the back buffer and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		shaderProgram.Activate();
 
+		// Handles camera inputs
 		camera.Inputs(window);
-		camera.Matrix(shaderProgram, "camMatrix");
 
-		vao.Bind();
-		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
+		// Draw a model
+		model.Draw(shaderProgram, camera);
 
+		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
-		
+		// Take care of all GLFW events
 		glfwPollEvents();
 	}
 
-	vao.Delete();
-	vbo.Delete();
-	ebo.Delete();
+
+
+	// Delete all the objects we've created
 	shaderProgram.Delete();
-
-	// Delete the window instance
+	// Delete window before ending the program
 	glfwDestroyWindow(window);
-
-	// Terminate GLFW
+	// Terminate GLFW before ending the program
 	glfwTerminate();
-
-	// Exit
 	return 0;
 }

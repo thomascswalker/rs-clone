@@ -44,6 +44,7 @@ glm::mat4 Camera::GetMatrix() {
 	glm::vec3 cameraPos = glm::vec3(target.x + radial.x, radial.y, target.z + radial.z);
 
 	cameraRight = glm::normalize(glm::cross(up, cameraPos - target));
+	translation = cameraPos;
 
 	return glm::lookAt(cameraPos, target, up);
 }
@@ -60,7 +61,6 @@ void Camera::Inputs(GLFWwindow* window)
 		{
 			vAngle = 90.0f;
 		}
-		printf("V: %f, H: %f\n", vAngle, hAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
@@ -71,7 +71,6 @@ void Camera::Inputs(GLFWwindow* window)
 		{
 			hAngle = 0.0f;
 		}
-		printf("V: %f, H: %f\n", vAngle, hAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
@@ -82,7 +81,6 @@ void Camera::Inputs(GLFWwindow* window)
 		{
 			vAngle = 180.0f;
 		}
-		printf("V: %f, H: %f\n", vAngle, hAngle);
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
@@ -93,6 +91,5 @@ void Camera::Inputs(GLFWwindow* window)
 		{
 			hAngle = 0.0f;
 		}
-		printf("V: %f, H: %f\n", vAngle, hAngle);
 	}
 }
