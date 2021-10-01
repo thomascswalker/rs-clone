@@ -9,7 +9,7 @@
 #include<glm/gtx/rotate_vector.hpp>
 #include<glm/gtx/vector_angle.hpp>
 
-#include"shaderclass.h"
+#include"shaderClass.h"
 
 class Camera
 {
@@ -32,7 +32,7 @@ public:
 	glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f);
 
 	// Target position
-	int distance = 5;
+	int distance = 10;
 	float fov = 50.0f;
 	float nearClip = 1.0f;
 	float farClip = 1000.0f;
