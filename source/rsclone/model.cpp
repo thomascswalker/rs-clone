@@ -3,7 +3,7 @@
 Model::Model(const char* file)
 {
 	// Make a JSON object
-	std::string text = get_file_contents(file);
+	std::string text = ReadFile(file);
 	JSON = json::parse(text);
 
 	// Get the binary data
@@ -135,7 +135,7 @@ std::vector<unsigned char> Model::getData()
 	// Store raw text data into bytesText
 	std::string fileStr = std::string(file);
 	std::string fileDirectory = fileStr.substr(0, fileStr.find_last_of('/') + 1);
-	bytesText = get_file_contents((fileDirectory + uri).c_str());
+	bytesText = ReadFile((fileDirectory + uri).c_str());
 
 	// Transform the raw text data into bytes and put them in a vector
 	std::vector<unsigned char> data(bytesText.begin(), bytesText.end());
