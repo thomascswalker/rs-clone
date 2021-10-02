@@ -1,5 +1,7 @@
 #include <filesystem>
-#include "Model.h"
+
+#include "Renderer.h"
+#include "Import.h"
 
 const unsigned int width = 800;
 const unsigned int height = 800;
@@ -63,8 +65,9 @@ int main()
 
 	// Load in a model
 	std::string parentDir = (std::filesystem::current_path().std::filesystem::path::parent_path()).string();
-	std::string modelPath = "/assets/prod/scene.gltf";
-	Model model((parentDir + modelPath).c_str());
+	std::string modelPath = "/assets/prod/window.gltf";
+	std::string modelFilename = (parentDir + modelPath).c_str();
+	Importer::Importer(modelFilename);
 
 	// Specify the color of the background
 	glClearColor(0.18f, 0.18f, 0.18f, 1.0f);
@@ -80,7 +83,7 @@ int main()
 		ProcessInput(window);
 
 		// Draw a model
-		model.Draw(shaderProgram, camera);
+		//model.Draw(shaderProgram, camera);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
