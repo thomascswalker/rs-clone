@@ -16,6 +16,9 @@ bool firstMouse = true;
 const unsigned int width = 800;
 const unsigned int height = 800;
 
+float nearClip = 1.0f;
+float farClip = 5000.0f;
+
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = width / 2.0f;
 float lastY = height / 2.0f;
@@ -57,10 +60,10 @@ int main()
 	glfwMakeContextCurrent(window);
 	glfwSetScrollCallback(window, ScrollCallback);
 	glfwSetFramebufferSizeCallback(window, FramebufferSizeCallback);
-	glfwSetCursorPosCallback(window, MouseCallback);
+	//glfwSetCursorPosCallback(window, MouseCallback);
 
 	// tell GLFW to capture our mouse
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
 	//Load GLAD so it configures OpenGL
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -98,8 +101,7 @@ int main()
 		
 		// Draw our model
 		// view/projection transformations
-		float nearClip = 0.01f;
-		float farClip = 10000.0f;
+
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)width / (float)height, nearClip, farClip);
 		glm::mat4 view = camera.GetViewMatrix();
 		shader.setMat4("projection", projection);
