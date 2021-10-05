@@ -42,9 +42,9 @@ struct Texture {
 class Mesh {
 public:
     // mesh Data
-    vector<Vertex>       vertices;
-    vector<unsigned int> indices;
-    vector<Texture>      textures;
+    vector <Vertex>       vertices;
+    vector <unsigned int> indices;
+    vector <Texture>      textures;
     unsigned int VAO;
 
     // constructor

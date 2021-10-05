@@ -26,6 +26,7 @@ Camera camera(glm::vec3(0.0f, 50.0f, 3.0f));
 float lastX = WIDTH / 2.0f;
 float lastY = HEIGHT / 2.0f;
 
+void renderQuad();
 void ProcessInput(GLFWwindow* window);
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 void FramebufferSizeCallback(GLFWwindow* window, int width, int height);
@@ -81,84 +82,25 @@ int main()
 	glMatrixMode(GL_MODELVIEW);
 
 
-
-
-
-	//// ------- MODELS ------- ////
-
-	// Load in a model
+	//////////////////////////////////
+	//// ------- MODELS -------- /////
+	//////////////////////////////////
 	Model model(FileSystem::getPath("../assets/prod/scene.fbx"));
 	Model player(FileSystem::getPath("../assets/prod/playercharacter.fbx"));
 
-
-
-
+	//////////////////////////////////////
 	//// ------- FRAMEBUFFER -------- ////
-	
-	float screenVertices[] = { // vertex attributes for a quad that fills the entire screen in Normalized Device Coordinates.
-	// positions   // texCoords
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		-1.0f, -1.0f,  0.0f, 0.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
+	//////////////////////////////////////
 
-		-1.0f,  1.0f,  0.0f, 1.0f,
-		 1.0f, -1.0f,  1.0f, 0.0f,
-		 1.0f,  1.0f,  1.0f, 1.0f
-	};
-
-	// screen quad VAO
-	unsigned int quadVAO, quadVBO;
-	glGenVertexArrays(1, &quadVAO);
-	glGenBuffers(1, &quadVBO);
-	glBindVertexArray(quadVAO);
-	glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(screenVertices), &screenVertices, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-	// Framebuffer
-	unsigned int framebuffer;
-	glGenFramebuffers(1, &framebuffer);
-	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-
-	// Texture color buffer
-	unsigned int textureColorbuffer;
-	glGenTextures(1, &textureColorbuffer);
-	glBindTexture(GL_TEXTURE_2D, textureColorbuffer);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, WIDTH, HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureColorbuffer, 0);
-
-	// Renderbuffer
-	unsigned int renderbuffer;
-	glGenRenderbuffers(1, &renderbuffer);
-	glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, WIDTH, HEIGHT);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffer);
-
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-	{
-		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
-	}
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-
-
+	//////////////////////////////////
 	//// ------- SHADERS -------- ////
-
-	// Generates Shader object using shaders default.vert and default.frag
+	//////////////////////////////////
 	Shader defaultShader("default.vert", "default.frag");
 	defaultShader.use();
 
-	Shader screenShader("screen.vert", "screen.frag");
-	screenShader.use();
-
-
-
+	/////////////////////////////////////////
 	//// ------- MAIN GAME LOOP -------- ////
+	/////////////////////////////////////////
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -170,9 +112,7 @@ int main()
 		// Camera input
 		ProcessInput(window);
 
-		glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 		glEnable(GL_DEPTH_TEST); // enable depth testing (is disabled for rendering screen-space quad)
-
 		glClearColor(SKYBOX[0], SKYBOX[1], SKYBOX[2], SKYBOX[3]);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -193,23 +133,7 @@ int main()
 		model.Draw(defaultShader);
 		player.Draw(defaultShader);
 
-
-
 		//// ------ DRAW FRAMEBUFFER ------- ////
-
-		// now bind back to default framebuffer and draw a quad plane with the attached framebuffer color texture
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-		glDisable(GL_DEPTH_TEST); // disable depth test so screen-space quad isn't discarded due to depth test.
-		// clear all relevant buffers
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // set clear color to white (not really necessary actually, since we won't be able to see behind the quad anyways)
-		glClear(GL_COLOR_BUFFER_BIT);
-
-		screenShader.use();
-		glBindVertexArray(quadVAO);
-		glBindTexture(GL_TEXTURE_2D, textureColorbuffer);	// use the color attachment texture as the texture of the quad plane
-		glDrawArrays(GL_TRIANGLES, 0, 6);
-
-
 
 		// Swap the back buffer with the front buffer
 		// Take care of all GLFW events
@@ -217,8 +141,6 @@ int main()
 		glfwPollEvents();
 	}
 
-	glDeleteBuffers(1, &quadVBO);
-	glDeleteFramebuffers(1, &framebuffer);
 
 	// Delete window before ending the program
 	glfwDestroyWindow(window);
@@ -245,7 +167,6 @@ void ProcessInput(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
 }
-
 
 void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset)
 {
