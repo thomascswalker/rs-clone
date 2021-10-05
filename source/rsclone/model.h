@@ -114,15 +114,11 @@ private:
             }
 
             //color
-            //aiColor4D *color = mesh->mColors[i];
-            //vector.x = 1.0f;
-            //vector.y = 1.0f;
-            //vector.z = 1.0f;
-            //vector.x = color->r;
-            //vector.y = color->g;
-            //vector.z = color->b;
-            vertex.Color = vector;
-
+            if (mesh->mColors[0] != nullptr)
+            {
+                aiColor4D color = mesh->mColors[0][i];
+                vertex.Color = glm::vec4(color.r, color.g, color.b, color.a);
+            }
 
             // texture coordinates
             if(mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
