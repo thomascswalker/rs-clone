@@ -52,5 +52,11 @@
     <None Include="default.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="screen.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="screen.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
