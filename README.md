@@ -8,6 +8,7 @@ A simple clone engine based on the game RuneScape. Built with C++ and OpenGL.
 - [x] Simple renderer
 - [x] Model loader (.fbx)
 - [x] Third person camera
+- [ ] Deferred shading
 - [ ] SSAO
 - [ ] Player character class
 - [ ] Point-and-click movement
