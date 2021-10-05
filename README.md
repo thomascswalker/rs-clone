@@ -1,4 +1,8 @@
 # RuneScape Clone
+A simple clone engine based on the game RuneScape. Built with C++ and OpenGL.
+
+## Requirements
+- VS 2019
 
 ## TODO:
 - [x] Simple renderer
