@@ -19,7 +19,7 @@ const unsigned int height = 800;
 float nearClip = 1.0f;
 float farClip = 5000.0f;
 
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera camera(glm::vec3(0.0f, 50.0f, 3.0f));
 float lastX = width / 2.0f;
 float lastY = height / 2.0f;
 
@@ -86,6 +86,7 @@ int main()
 
 	// Load in a model
 	Model model(FileSystem::getPath("../assets/prod/scene.fbx"));
+	Model player(FileSystem::getPath("../assets/prod/playercharacter.fbx"));
 
 	// Main while loop
 	while (!glfwWindowShouldClose(window))
@@ -94,7 +95,7 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		glClearColor(0.07f, 0.20f, 0.25f, 1.0f);
+		glClearColor(0.01f, 0.01f, 0.01f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// Handles camera inputs
@@ -116,6 +117,7 @@ int main()
 		shader.setMat4("model", temp);
 		
 		model.Draw(shader);
+		player.Draw(shader);
 
 		// Swap the back buffer with the front buffer
 		glfwSwapBuffers(window);
