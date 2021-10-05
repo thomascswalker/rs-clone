@@ -24,6 +24,12 @@ const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 const float DISTANCE = 1000.0f;
 
+const float MIN_ZOOM = 1.0f;
+const float MAX_ZOOM = 90.0f;
+
+const float MIN_PITCH = 90.0f;
+const float MAX_PITCH = 180.0f;
+
 
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera
@@ -58,7 +64,7 @@ public:
         WorldUp = up;
         Yaw = yaw;
         Pitch = pitch;
-        Target = glm::vec3(0.0f, 0.0f, 0.0f);
+        Target = glm::vec3(0.0f, 3.0f, 0.0f);
         Distance = DISTANCE;
         updateCameraVectors();
     }
@@ -86,10 +92,6 @@ public:
         radial.z = Distance * sin(h);
 
         glm::vec3 cameraPos = glm::vec3(Target.x + radial.x, radial.y, Target.z + radial.z);
-
-        cameraRight = glm::normalize(glm::cross(Up, cameraPos - Target));
-        //translation = cameraPos;
-
         return glm::lookAt(cameraPos, Target, Up);
     }
 
@@ -107,11 +109,11 @@ public:
             Yaw -= MovementSpeed;
 
         // make sure that when pitch is out of bounds, screen doesn't get flipped
-        if (Pitch > 180.0f)
-            Pitch = 180.0f;
+        if (Pitch > MAX_PITCH)
+            Pitch = MAX_PITCH;
 
-        if (Pitch < 110.0f)
-            Pitch = 110.0f;
+        if (Pitch < MIN_PITCH)
+            Pitch = MIN_PITCH;
     }
 
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
@@ -125,10 +127,10 @@ public:
     void ProcessMouseScroll(float yoffset)
     {
         Zoom -= (float)yoffset;
-        if (Zoom < 1.0f)
-            Zoom = 1.0f;
-        if (Zoom > 90.0)
-            Zoom = 90.0f;
+        if (Zoom < MIN_ZOOM)
+            Zoom = MIN_ZOOM;
+        if (Zoom > MAX_ZOOM)
+            Zoom = MAX_ZOOM;
     }
 
 private:
