@@ -1,0 +1,9 @@
+﻿  game.cpp
+C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\shader.h(44,40): warning C4101: 'e': unreferenced local variable
+C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\mesh.h(92,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\game.cpp(68,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\shader.h(44,40): warning C4101: 'e': unreferenced local variable
+C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\mesh.h(92,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Generating Code...
+  rsclone.vcxproj -> C:\Users\Tom\Documents\GitHub\rs-clone\source\rsclone\x64\Debug\rsclone.exe
