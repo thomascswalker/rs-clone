@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -17,9 +18,14 @@ public class CameraController : MonoBehaviour
     public float cameraSpeed = 25.0f;
     public float scrollSpeed = 5.0f;
 
+    private Text console;
+
+    private Ray ray;
+    private RaycastHit hit;
+
     void Start()
     {
-
+        console = GameObject.FindWithTag("UIConsole").GetComponent<Text>();
     }
 
     void Update()
@@ -30,6 +36,7 @@ public class CameraController : MonoBehaviour
             return;
         }
 
+        HandleMouse();
         HandleInput();
     }
 
@@ -64,6 +71,21 @@ public class CameraController : MonoBehaviour
             transform.RotateAround(target.transform.position, Vector3.up, -cameraSpeed * Time.deltaTime);
         }
 
+        // Debug.Log(transform.rotation);
+        Debug.Log(console);
+        console.text = transform.rotation.ToString() + "\n";
+
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            console.text += hit.collider.name;
+        }
         
+
+    }
+
+    void HandleMouse()
+    {
+
     }
 }
