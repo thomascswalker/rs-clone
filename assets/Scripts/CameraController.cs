@@ -56,11 +56,17 @@ public class CameraController : MonoBehaviour
         // Handle rotation
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
-            transform.RotateAround(target.transform.position, transform.right, cameraSpeed * Time.deltaTime);
+            if (transform.localRotation.x < 0.5)
+            {
+                transform.RotateAround(target.transform.position, transform.right, cameraSpeed * Time.deltaTime);
+            }
         }
         if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
         {
-            transform.RotateAround(target.transform.position, transform.right, -cameraSpeed * Time.deltaTime);
+            if (transform.localRotation.x > 0.2)
+            {
+                transform.RotateAround(target.transform.position, transform.right, -cameraSpeed * Time.deltaTime);
+            }
         }
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
@@ -71,17 +77,49 @@ public class CameraController : MonoBehaviour
             transform.RotateAround(target.transform.position, Vector3.up, -cameraSpeed * Time.deltaTime);
         }
 
-        // Debug.Log(transform.rotation);
-        Debug.Log(console);
-        console.text = transform.rotation.ToString() + "\n";
+
+        console.text = "";
+        Log(transform.localRotation.ToString());
 
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit))
         {
-            console.text += hit.collider.name;
-        }
-        
+            GameObject obj = hit.collider.gameObject;
+            if (IsInteractive(obj))
+            {
+                Log("Interact with: " + hit.collider.name);
+            }
 
+            if (IsWalkable(obj))
+            {
+                Log("Walk to: " + hit.collider.name);
+            }
+        }
+    }
+
+    void Log(string text)
+    {
+        console.text += text + "\n";
+    }
+ 
+    bool IsWalkable(GameObject obj)
+    {
+        if (obj.tag == "Walkable")
+        {
+            return true;
+        }
+
+        return false; 
+    }
+
+    bool IsInteractive(GameObject obj)
+    {
+        if (obj.tag == "Interactive")
+        {
+            return true;
+        }
+
+        return false;
     }
 
     void HandleMouse()

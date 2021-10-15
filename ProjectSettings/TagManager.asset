@@ -9,6 +9,8 @@ TagManager:
   - UIMinimap
   - UIConsole
   - UICommandPanel
+  - Interactive
+  - Walkable
   layers:
   - Default
   - TransparentFX

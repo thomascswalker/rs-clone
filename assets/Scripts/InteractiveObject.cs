@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class InteractiveObject : MonoBehaviour
 {
+    void Start()
+    {
+
+    }
+
+    void Update()
+    {
+        OnMouseOver();
+        OnMouseExit();
+    }
+
     void OnMouseOver()
     {
         //If your mouse hovers over the GameObject with the script attached, output this message
