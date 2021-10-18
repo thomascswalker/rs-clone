@@ -2,28 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractiveObject : MonoBehaviour
+using Console;
+using Message;
+
+abstract class InteractiveObject : MonoBehaviour
 {
-    void Start()
-    {
+    public string actionName;
 
+    abstract public void ExecuteAction();
+    abstract public void OnMouseOver();
+
+    private void OnMouseExit()
+    {
+        Console.Console.Clear();
     }
 
-    void Update()
+    private void OnMouseDown()
     {
-        OnMouseOver();
-        OnMouseExit();
-    }
-
-    void OnMouseOver()
-    {
-        //If your mouse hovers over the GameObject with the script attached, output this message
-        Debug.Log("Mouse is over GameObject.");
-    }
-
-    void OnMouseExit()
-    {
-        //The mouse is no longer hovering over the GameObject so output this message each frame
-        Debug.Log("Mouse is no longer on GameObject.");
+        ExecuteAction();
     }
 }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
+using Pathfinding;
+
 public class PlayerController : MonoBehaviour
 {
-    private NavMeshAgent navMeshAgent;
-    private bool walking;
+    private AIPath ai;
 
     void Awake()
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        ai = GetComponent<AIPath>();
     }
 
     void Start()
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                navMeshAgent.destination = hit.point;
+                ai.destination = hit.point;
             }
         }
     }
