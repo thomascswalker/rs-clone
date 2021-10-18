@@ -29,7 +29,6 @@ class DoorController : InteractiveObject
 
     public override void OnMouseOver()
     {
-        string text = actionName + " <color=cyan><b>" + gameObject.name + "</b></color>";
-        Console.Console.Print(text);
+        Console.Console.Print(GetConsoleText());
     }
 }

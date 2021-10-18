@@ -8,9 +8,15 @@ using Message;
 abstract class InteractiveObject : MonoBehaviour
 {
     public string actionName;
+    public string color;
 
     abstract public void ExecuteAction();
     abstract public void OnMouseOver();
+
+    protected string GetConsoleText()
+    {
+        return actionName + " <color=" + color + "><b>" + gameObject.name + "</b></color>";
+    }
 
     private void OnMouseExit()
     {
