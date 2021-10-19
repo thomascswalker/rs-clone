@@ -64,6 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actionName: Open
   color: cyan
+  rescan: 1
   door: {fileID: 5459952349902142301}
   open: 0
 --- !u!1001 &5075538061765027625

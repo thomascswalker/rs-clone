@@ -587,21 +587,21 @@ PlayerSettings:
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
-    1: 
-    4: 
-    7: 
-    13: 
-    14: 
-    19: 
-    21: 
-    25: 
-    27: 
-    28: 
-    29: 
-    30: 
-    31: 
-    32: 
-    33: 
+    1: ASTAR_JPS
+    4: ASTAR_JPS
+    7: ASTAR_JPS
+    13: ASTAR_JPS
+    14: ASTAR_JPS
+    19: ASTAR_JPS
+    21: ASTAR_JPS
+    25: ASTAR_JPS
+    27: ASTAR_JPS
+    28: ASTAR_JPS
+    29: ASTAR_JPS
+    30: ASTAR_JPS
+    31: ASTAR_JPS
+    32: ASTAR_JPS
+    33: ASTAR_JPS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

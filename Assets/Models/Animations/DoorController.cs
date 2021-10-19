@@ -11,15 +11,15 @@ class DoorController : InteractiveObject
     {
         if (!open)
         {
-            Message.Message.Print("Opening door.");
+            Message.Message.Print("You open the door.");
             door.Play("DoorOpen", 0, 0.0f);
             // gameObject.SetActive(false);
             open = true;
             actionName = "Close";
         }
-        else
+        else 
         {
-            Message.Message.Print("Closing door.");
+            Message.Message.Print("You close the door.");
             door.Play("DoorClose", 0, 0.0f);
             // gameObject.SetActive(false);
             open = false;
@@ -27,8 +27,8 @@ class DoorController : InteractiveObject
         }
     }
 
-    public override void OnMouseOver()
+    void Update()
     {
-        Console.Console.Print(GetConsoleText());
+        Rescan();
     }
 }

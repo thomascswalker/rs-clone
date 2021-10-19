@@ -8,9 +8,4 @@ class TreeController : InteractiveObject
     {
         Debug.Log("Executing action");
     }
-
-    public override void OnMouseOver()
-    {
-        Console.Console.Print(GetConsoleText());
-    }
 }
