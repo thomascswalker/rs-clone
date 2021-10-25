@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Console;
 using Message;
-using Pathfinding;
+// using Pathfinding;
 
 abstract class InteractiveObject : MonoBehaviour
 {
@@ -51,16 +51,16 @@ abstract class InteractiveObject : MonoBehaviour
 
     protected void Rescan()
     {
-        Bounds bounds = gameObject.GetComponent<MeshCollider>().bounds;
+        // Bounds bounds = gameObject.GetComponent<MeshCollider>().bounds;
 
-        if (bounds == null)
-        {
-            return;
-        }
+        // if (bounds == null)
+        // {
+        //     return;
+        // }
 
-        bounds.Expand(2f);
-        // var guo = new GraphUpdateObject(bounds);
-        // AstarPath.active.UpdateGraphs(guo);
+        // bounds.Expand(2f);
+        // // var guo = new GraphUpdateObject(bounds);
+        // // AstarPath.active.UpdateGraphs(guo);
     }
 
     public void OnMouseOver()

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-using Pathfinding;
+// using Pathfinding;
 
 public class PlayerController : MonoBehaviour
 {
-    private AIPath ai;
+    // private AIPath ai;
 
     void Awake()
     {
-        ai = GetComponent<AIPath>();
+        // ai = GetComponent<AIPath>();
     }
 
     void Start()
@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                ai.destination = hit.point;
+                Debug.Log(hit.point);
+                // ai.destination = hit.point;
             }
         }
     }
