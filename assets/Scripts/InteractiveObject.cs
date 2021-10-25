@@ -59,8 +59,8 @@ abstract class InteractiveObject : MonoBehaviour
         }
 
         bounds.Expand(2f);
-        var guo = new GraphUpdateObject(bounds);
-        AstarPath.active.UpdateGraphs(guo);
+        // var guo = new GraphUpdateObject(bounds);
+        // AstarPath.active.UpdateGraphs(guo);
     }
 
     public void OnMouseOver()
