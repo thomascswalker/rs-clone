@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Pathfinding : MonoBehaviour
 {
     PathGrid mGrid;
@@ -54,6 +55,11 @@ public class Pathfinding : MonoBehaviour
                     continue;
                 }
 
+                if (!neighbor.ortho)
+                {
+                    continue;
+                }
+
                 int newMovementCostToNeighbor = currentTile.gCost + GetDistance(currentTile, neighbor);
                 if (newMovementCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor))
                 {
@@ -72,7 +78,6 @@ public class Pathfinding : MonoBehaviour
 
     void RetracePath(Tile startTile, Tile endTile)
     {
-        Debug.Log(endTile.gridX + " : " + endTile.gridY);
         List<Tile> path = new List<Tile>();
         Tile currentTile = endTile;
 
@@ -84,7 +89,7 @@ public class Pathfinding : MonoBehaviour
 
         path.Reverse();
 
-        mGrid.path = path;
+        mGrid.mPath = path;
     }
 
     int GetDistance(Tile tileA, Tile tileB)

@@ -15,6 +15,7 @@ public class Tile
     public int gridX;
     public int gridY;
 
+    public bool ortho;
     public Tile parent;
 
     public Tile(bool walkable, Vector3 position, int x, int y)
@@ -28,6 +29,11 @@ public class Tile
     public int fCost()
     {
         return gCost + hCost;
+    }
+
+    public Vector3 center()
+    {
+        return mPosition; // + new Vector3(0.5f, 0, 0.5f);
     }
 }
 
@@ -87,7 +93,8 @@ public class PathGrid : MonoBehaviour
     private Tile[,] mTileGrid;
     private Wall[,] mWallGrid;
 
-    public List<Tile> path;
+    public List<Tile> mPath;
+    public Color mPathColor = Color.green;
 
     float mNodeDiameter;
     int mGridSizeX, mGridSizeY;
@@ -157,6 +164,7 @@ public class PathGrid : MonoBehaviour
     {
         List<Tile> neighbors = new List<Tile>();
 
+        // Loop through and get the initial viable tiles
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
@@ -172,7 +180,12 @@ public class PathGrid : MonoBehaviour
 
                 if (checkX >= 0 && checkX < mGridSizeX && checkY >= 0 && checkY < mGridSizeY)
                 {
-                    neighbors.Add(mTileGrid[checkX, checkY]);
+                    Tile neighbor = mTileGrid[checkX, checkY];
+                    if (Mathf.Abs(x) == 0 && Mathf.Abs(y) == 1 || Mathf.Abs(x) == 1 && Mathf.Abs(y) == 0)
+                    {
+                        neighbor.ortho = true;
+                    }
+                    neighbors.Add(neighbor);
                 }
             }
         }
@@ -283,18 +296,19 @@ public class PathGrid : MonoBehaviour
 
     public void OnDrawGizmos()
     {
-        CreateTileGrid();
-        CreateWallGrid();
         Gizmos.DrawWireCube(transform.position, new Vector3(mGridWorldSize.x, 1, mGridWorldSize.y));
 
         Mesh tileMesh = CreateTile();
         Mesh wallMesh = CreateWall();
 
+        CreateTileGrid();
         if (mTileGrid != null)
         {
-            // Draw the main tile grid
+            // Get the current player position
             Transform seeker = GetComponent<Pathfinding>().seeker;
             Tile playerTile = TileFromWorldPoint(seeker.position);
+
+            // For each tile in the grid
             foreach (Tile tile in mTileGrid)
             {
                 Color tileColor = tile.mWalkable ? Color.green : Color.red;
@@ -312,8 +326,9 @@ public class PathGrid : MonoBehaviour
                     {
                         continue;
                     }
-                    Gizmos.DrawWireMesh(wallMesh, tile.mPosition, Quaternion.identity, Vector3.one);
+                    Gizmos.DrawMesh(wallMesh, tile.mPosition, Quaternion.identity, Vector3.one);
                 }
+
                 // Walkable tiles
                 else
                 {
@@ -321,38 +336,41 @@ public class PathGrid : MonoBehaviour
                     {
                         continue;
                     }
-                    if (path != null)
-                    {
-                        if (path.Contains(tile))
-                        {
-                            Gizmos.color = Color.yellow;
-                        }
-                    }
-                    Gizmos.DrawWireMesh(tileMesh, tile.mPosition, Quaternion.identity, Vector3.one);
-                }
-            }
-
-            // Draw the wall grid
-            foreach (Wall wall in mWallGrid)
-            {
-                Color wallColor = Color.red;
-                wallColor.a = mOpacity;
-                Gizmos.color = wallColor;
-
-                for (int i = 0; i < wall.mBounds.Length; i++)
-                {
-                    bool walkable = wall.mWalkable[i];
-                    Vector3 bound = wall.mBounds[i];
-                    if (!walkable)
-                    {
-                        if (showWalls == false)
-                        {
-                            continue;
-                        }
-                        Gizmos.DrawWireMesh(wallMesh, bound, Quaternion.identity, Vector3.one);
-                    }
+                    Gizmos.DrawMesh(tileMesh, tile.mPosition, Quaternion.identity, Vector3.one);
                 }
             }
         }
+
+        if (mPath != null)
+        {
+            foreach (Tile tile in mPath)
+            {
+                Gizmos.color = mPathColor;
+                Gizmos.DrawSphere(tile.center(), 0.25f);
+            }
+        }
+
+            // Draw the wall grid
+            // CreateWallGrid();
+            // foreach (Wall wall in mWallGrid)
+            // {
+            //     Color wallColor = Color.magenta;
+            //     wallColor.a = mOpacity;
+            //     Gizmos.color = wallColor;
+
+            //     for (int i = 0; i < wall.mBounds.Length; i++)
+            //     {
+            //         bool walkable = wall.mWalkable[i];
+            //         Vector3 bound = wall.mBounds[i];
+            //         if (!walkable)
+            //         {
+            //             if (showWalls == false)
+            //             {
+            //                 continue;
+            //             }
+            //             Gizmos.DrawWireMesh(wallMesh, bound, Quaternion.identity, Vector3.one);
+            //         }
+            //     }
+            // }
     }
 }
