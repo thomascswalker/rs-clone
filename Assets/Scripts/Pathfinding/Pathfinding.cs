@@ -6,7 +6,7 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
     PathGrid mGrid;
-    public Transform seeker, target;
+    public Transform seeker;
 
     void Awake()
     {
@@ -15,7 +15,13 @@ public class Pathfinding : MonoBehaviour
     
     void Update()
     {
-        FindPath(seeker.position, target.position);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            FindPath(seeker.position, hit.point);
+        }
     }
 
     void FindPath(Vector3 startPos, Vector3 targetPos)

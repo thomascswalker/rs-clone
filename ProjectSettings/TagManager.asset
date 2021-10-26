@@ -12,6 +12,7 @@ TagManager:
   - Interactive
   - Walkable
   - UIMessage
+  - Pathing
   layers:
   - Default
   - TransparentFX

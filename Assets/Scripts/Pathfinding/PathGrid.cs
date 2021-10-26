@@ -99,6 +99,8 @@ public class PathGrid : MonoBehaviour
     public List<Tile> mPath;
     public Color mPathColor = Color.green;
 
+    public Vector3 hoverPoint;
+
     float mNodeDiameter;
     int mGridSizeX, mGridSizeY;
 
