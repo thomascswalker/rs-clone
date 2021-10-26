@@ -7,6 +7,8 @@ public class Pathfinding : MonoBehaviour
 {
     PathGrid mGrid;
     public Transform seeker;
+    int targetIndex;
+    public float speed = 20;
 
     void Awake()
     {
@@ -20,7 +22,36 @@ public class Pathfinding : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
+            // For every mouse movement
             FindPath(seeker.position, hit.point);
+
+            // If we're clicking
+            if (Input.GetMouseButtonDown(0))
+            {
+                NavigatePath();
+            }
+        }
+    }
+
+    void NavigatePath()
+    {
+        Debug.Log("Navigating!");
+        Tile currentWaypoint = mGrid.mPath[0];
+        while (true)
+        {
+            Tile currentTile = mGrid.TileFromWorldPoint(seeker.position);
+            if (currentTile == currentWaypoint)
+            {
+                targetIndex++;
+				if (targetIndex >= mGrid.mPath.Count)
+                {
+					return;
+				}
+				currentWaypoint = mGrid.mPath[targetIndex];
+			}
+
+			seeker.position = Vector3.MoveTowards(seeker.position, currentWaypoint.mPosition, speed * Time.deltaTime);
+			return;
         }
     }
 
