@@ -18,6 +18,9 @@ public class Tile
     public bool ortho;
     public Tile parent;
 
+    public int relativeX;
+    public int relativeY;
+
     public Tile(bool walkable, Vector3 position, int x, int y)
     {
         mWalkable = walkable;
@@ -90,8 +93,8 @@ public class PathGrid : MonoBehaviour
     public bool showBlocked = true;
     public bool showWalls = true;
 
-    private Tile[,] mTileGrid;
-    private Wall[,] mWallGrid;
+    public Tile[,] mTileGrid;
+    public Wall[,] mWallGrid;
 
     public List<Tile> mPath;
     public Color mPathColor = Color.green;
@@ -162,6 +165,15 @@ public class PathGrid : MonoBehaviour
 
     public List<Tile> GetNeighbors(Tile tile)
     {
+        /*
+            _____________
+            | 2 | 4 | 7 |
+            _____________
+            | 1 | - | 6 |
+            _____________
+            | 0 | 3 | 5 |
+            _____________
+        */
         List<Tile> neighbors = new List<Tile>();
 
         // Loop through and get the initial viable tiles
@@ -185,6 +197,8 @@ public class PathGrid : MonoBehaviour
                     {
                         neighbor.ortho = true;
                     }
+                    neighbor.relativeX = x;
+                    neighbor.relativeY = y;
                     neighbors.Add(neighbor);
                 }
             }

@@ -6,6 +6,7 @@ using Console;
 using Message;
 // using Pathfinding;
 
+[ExecuteInEditMode]
 abstract class InteractiveObject : MonoBehaviour
 {
     public enum Types {Object, Resource, Npc, Enemy}
@@ -47,20 +48,6 @@ abstract class InteractiveObject : MonoBehaviour
     protected string GetConsoleText()
     {
         return actionName + " <color=#" + ColorUtility.ToHtmlStringRGB(color) + "><b>" + gameObject.name + "</b></color>";
-    }
-
-    protected void Rescan()
-    {
-        // Bounds bounds = gameObject.GetComponent<MeshCollider>().bounds;
-
-        // if (bounds == null)
-        // {
-        //     return;
-        // }
-
-        // bounds.Expand(2f);
-        // // var guo = new GraphUpdateObject(bounds);
-        // // AstarPath.active.UpdateGraphs(guo);
     }
 
     public void OnMouseOver()

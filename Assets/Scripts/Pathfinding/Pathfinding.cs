@@ -42,12 +42,35 @@ public class Pathfinding : MonoBehaviour
             openSet.Remove(currentTile);
             closedSet.Add(currentTile);
 
+            // If we're on the current tile, we need to retrace our path
             if (currentTile == targetTile)
             {
                 RetracePath(startTile, targetTile);
                 return;
             }
 
+            /* Get the current walls tile
+                    _____________
+                    | - | 0 | - |
+                    _____________
+                    | 1 | - | 3 |
+                    _____________
+                    | - | 2 | - |
+                    _____________
+
+                    0 = [0, 1]
+                    1 = [-1, 0]
+                    2 = [0, -1]
+                    3 = [1, 0]
+            */
+
+            // Wall wall;
+            // if (mGrid.mWallGrid != null)
+            // {
+            //     wall = mGrid.mWallGrid[currentTile.gridX, currentTile.gridY];
+            // }
+
+            // For each neighboring tile
             foreach (Tile neighbor in mGrid.GetNeighbors(currentTile))
             {
                 if (!neighbor.mWalkable || closedSet.Contains(neighbor))
@@ -59,6 +82,9 @@ public class Pathfinding : MonoBehaviour
                 {
                     continue;
                 }
+
+                int x = neighbor.relativeX;
+                int y = neighbor.relativeY;
 
                 int newMovementCostToNeighbor = currentTile.gCost + GetDistance(currentTile, neighbor);
                 if (newMovementCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor))
