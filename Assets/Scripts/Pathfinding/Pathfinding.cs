@@ -5,77 +5,55 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Pathfinding : MonoBehaviour
 {
-    PathGrid mGrid;
-    public Transform seeker;
+    public PathGrid grid;
     int targetIndex;
     public float speed = 20;
 
+    // Execute prior to game launch
     void Awake()
     {
-        mGrid = GetComponent<PathGrid>();
+        grid = GetComponent<PathGrid>(); // Get the grid object itself
     }
-    
-    void Update()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+    /// <summary>
+    /// Finds a valid path given the start and target positions.
+    /// </summary>
+    /// <param name="startPos">The start point of the path.</param>
+    /// <param name="targetPos">The end point of the path.</param>
+    public void FindPath(Vector3 startPos, Vector3 targetPos)
+    {
+        // Get the start and target tiles from the start and target positions
+        Tile startTile = grid.TileFromWorldPoint(startPos);
+        Tile targetTile = grid.TileFromWorldPoint(targetPos);
+
+        // If there is no valid target tile, then we don't need to do any pathfinding
+        // and we can just exit.
+        if (targetTile == null)
         {
-            // For every mouse movement
-            FindPath(seeker.position, hit.point);
-
-            // If we're clicking
-            if (Input.GetMouseButtonDown(0))
-            {
-                NavigatePath();
-            }
+            return;
         }
-    }
 
-    void NavigatePath()
-    {
-        Debug.Log("Navigating!");
-        Tile currentWaypoint = mGrid.mPath[0];
-        while (true)
-        {
-            Tile currentTile = mGrid.TileFromWorldPoint(seeker.position);
-            if (currentTile == currentWaypoint)
-            {
-                targetIndex++;
-				if (targetIndex >= mGrid.mPath.Count)
-                {
-					return;
-				}
-				currentWaypoint = mGrid.mPath[targetIndex];
-			}
-
-			seeker.position = Vector3.MoveTowards(seeker.position, currentWaypoint.mPosition, speed * Time.deltaTime);
-			return;
-        }
-    }
-
-    void FindPath(Vector3 startPos, Vector3 targetPos)
-    {
-        Tile startTile = mGrid.TileFromWorldPoint(startPos);
-        Tile targetTile = mGrid.TileFromWorldPoint(targetPos);
-
+        // Create two sets: an open and a closed set
         List<Tile> openSet = new List<Tile>();
         HashSet<Tile> closedSet = new HashSet<Tile>();
 
+        // Add the starting tile to the open set
         openSet.Add(startTile);
 
+        // While there are still tiles in the open set...
         while (openSet.Count > 0)
         {
+            // Set the current tile to be the first tile in the open set
             Tile currentTile = openSet[0];
             for (int i = 1; i < openSet.Count; i++)
             {
-                if (openSet[i].fCost() < currentTile.fCost() || openSet[i].fCost() == currentTile.fCost() && openSet[i].hCost < currentTile.hCost)
+                if (openSet[i].f < currentTile.f || openSet[i].f == currentTile.f && openSet[i].h < currentTile.h)
                 {
                     currentTile = openSet[i];
                 }
             }
 
+            // Remove the current tile from the open set and add it to the closed set
             openSet.Remove(currentTile);
             closedSet.Add(currentTile);
 
@@ -86,50 +64,36 @@ public class Pathfinding : MonoBehaviour
                 return;
             }
 
-            /* Get the current walls tile
-                    _____________
-                    | - | 0 | - |
-                    _____________
-                    | 1 | - | 3 |
-                    _____________
-                    | - | 2 | - |
-                    _____________
-
-                    0 = [0, 1]
-                    1 = [-1, 0]
-                    2 = [0, -1]
-                    3 = [1, 0]
-            */
-
-            // Wall wall;
-            // if (mGrid.mWallGrid != null)
-            // {
-            //     wall = mGrid.mWallGrid[currentTile.gridX, currentTile.gridY];
-            // }
-
             // For each neighboring tile
-            foreach (Tile neighbor in mGrid.GetNeighbors(currentTile))
+            foreach (Tile neighbor in grid.GetNeighbors(currentTile))
             {
-                if (!neighbor.mWalkable || closedSet.Contains(neighbor))
+                // Skip if:
+                // The neighbor is not walkable
+                // The closed set already contains the neighbor
+                // The neighbor is not an orthogonal tile
+                if (!neighbor.walkable || closedSet.Contains(neighbor) || !neighbor.ortho)
                 {
                     continue;
                 }
 
-                if (!neighbor.ortho)
-                {
-                    continue;
-                }
+                // Get the cost of moving to this neighboring tile
+                int cost = currentTile.g + GetDistance(currentTile, neighbor);
 
-                int x = neighbor.relativeX;
-                int y = neighbor.relativeY;
-
-                int newMovementCostToNeighbor = currentTile.gCost + GetDistance(currentTile, neighbor);
-                if (newMovementCostToNeighbor < neighbor.gCost || !openSet.Contains(neighbor))
+                // If the cost to move is lower than the base incremental cost,
+                // or the open set doesn't contain the neighbor yet
+                if (cost < neighbor.g || !openSet.Contains(neighbor))
                 {
-                    neighbor.gCost = newMovementCostToNeighbor;
-                    neighbor.hCost = GetDistance(neighbor, targetTile);
+                    // Set the base cost of this neighbor to the calculated cost
+                    neighbor.g = cost;
+
+                    // Set the heuristic to the distance from the neighbor
+                    // to the target tile
+                    neighbor.h = GetDistance(neighbor, targetTile);
+
+                    // Set the parent of the neighbor to this tile
                     neighbor.parent = currentTile;
 
+                    // If the open set doesn't contain the neighbor, then we'll add it.
                     if (!openSet.Contains(neighbor))
                     {
                         openSet.Add(neighbor);
@@ -139,32 +103,69 @@ public class Pathfinding : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Retraces the path from the end tile back to the start tile
+    /// </summary>
+    /// <param name="startTile"></param>
+    /// <param name="endTile"></param>
     void RetracePath(Tile startTile, Tile endTile)
     {
         List<Tile> path = new List<Tile>();
         Tile currentTile = endTile;
 
+        // If we're not back at the starting tile
         while (currentTile != startTile)
         {
             path.Add(currentTile);
             currentTile = currentTile.parent;
         }
 
+        // Reverse the path so it goes start to end
         path.Reverse();
 
-        mGrid.mPath = path;
+        // Set the grid's path to the path we just got
+        grid.path = path;
     }
 
+    public void NavigatePath(PlayerController unit)
+    {
+        Tile currentWaypoint = grid.path[0];
+        while (true)
+        {
+            Tile currentTile = grid.TileFromWorldPoint(unit.transform.position);
+            if (currentTile == currentWaypoint)
+            {
+                targetIndex++;
+                if (targetIndex >= grid.path.Count)
+                {
+                    return;
+                }
+                currentWaypoint = grid.path[targetIndex];
+            }
+            unit.transform.position = Vector3.MoveTowards(unit.transform.position, currentWaypoint.position, speed * Time.deltaTime);
+            return;
+        }
+    }
+
+    /// <summary>
+    /// Gets the distance cost from one tile to another
+    /// </summary>
+    /// <param name="tileA">The first tile.</param>
+    /// <param name="tileB">The second tile.</param>
+    /// <returns>The distance cost.</returns>
     int GetDistance(Tile tileA, Tile tileB)
     {
-        int distanceX = Mathf.Abs(tileA.gridX - tileB.gridX);
-        int distanceY = Mathf.Abs(tileA.gridY - tileB.gridY);
+        // Get the absolute distance from the first tile to the second
+        int distanceX = Mathf.Abs(tileA.x - tileB.x);
+        int distanceY = Mathf.Abs(tileA.y - tileB.y);
 
+        // Calculate the distance cost
         if (distanceX > distanceY)
         {
             return (14 * distanceY) + 10 * (distanceX - distanceY);
         }
 
-        return (14 * distanceX) + 10 * (distanceY - distanceX);
+        int distance = (14 * distanceX) + 10 * (distanceY - distanceX);
+        return distance;
     }
 }
