@@ -3123,7 +3123,7 @@ GameObject:
   - component: {fileID: 1124551833}
   m_Layer: 0
   m_Name: Pathing
-  m_TagString: Untagged
+  m_TagString: Pathing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3154,8 +3154,7 @@ MonoBehaviour:
   tileHeight: 0.1
   showWalkable: 1
   showBlocked: 1
-  pathColor: {r: 0, g: 1, b: 0, a: 1}
-  hoverPoint: {x: 0, y: 0, z: 0}
+  pathColor: {r: 0, g: 0.4061408, b: 1, a: 1}
 --- !u!4 &1124551832
 Transform:
   m_ObjectHideFlags: 0
@@ -3182,6 +3181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c041756773254204d941600b0a42de31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grid: {fileID: 1124551831}
+  speed: 20
 --- !u!4 &1148278796 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3642285105149385241, guid: d99bdb8f2b43da14f9651944de171af7, type: 3}
@@ -18303,7 +18304,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1331757547}
   m_HandleRect: {fileID: 1331757546}
   m_Direction: 2
-  m_Value: 1.1516131
+  m_Value: 1.5368096
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

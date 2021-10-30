@@ -127,7 +127,7 @@ public class Pathfinding : MonoBehaviour
         grid.path = path;
     }
 
-    public void NavigatePath(PlayerController unit)
+    public IEnumerator NavigatePath(PlayerController unit)
     {
         Tile currentWaypoint = grid.path[0];
         while (true)
@@ -138,12 +138,12 @@ public class Pathfinding : MonoBehaviour
                 targetIndex++;
                 if (targetIndex >= grid.path.Count)
                 {
-                    return;
+                    yield return null;
                 }
                 currentWaypoint = grid.path[targetIndex];
             }
             unit.transform.position = Vector3.MoveTowards(unit.transform.position, currentWaypoint.position, speed * Time.deltaTime);
-            return;
+            yield return null;
         }
     }
 
