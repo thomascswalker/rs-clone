@@ -3,32 +3,31 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 
-using Pathfinding;
-
 public class PlayerController : MonoBehaviour
 {
-    private AIPath ai;
+    Pathfinding pathfinding;
 
     void Awake()
     {
-        ai = GetComponent<AIPath>();
+        GameObject obj = GameObject.FindWithTag("Pathing");
+        pathfinding = obj.GetComponent<Pathfinding>();
+        Debug.Log(pathfinding);
     }
 
-    void Start()
-    {
-
-    }
-
+    // On every frame
     void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Physics.Raycast(ray, out hit))
         {
-            if (Physics.Raycast(ray, out hit))
+            // If we're clicking
+            if (Input.GetMouseButtonDown(0))
             {
-                ai.destination = hit.point;
+                Debug.Log("Mouse clicked!");
+                pathfinding.FindPath(transform.position, hit.point);
+                StartCoroutine(pathfinding.NavigatePath(this));
             }
         }
     }

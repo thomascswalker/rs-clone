@@ -4,298 +4,216 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 
-public class Tile
-{
-    public bool mWalkable;
-    public Vector3 mPosition;
-
-    public Tile(bool walkable, Vector3 position)
-    {
-        mWalkable = walkable;
-        mPosition = position;
-    }
-}
-
-public class Wall
-{
-    public Vector3 mPosition;
-    public bool[] mWalkable = new bool[4];
-    public Vector3[] mBounds = new Vector3[4];
-
-    public Wall(bool[] walkable, Vector3[] bounds, Vector3 position)
-    {
-        mWalkable = walkable;
-        mBounds = bounds;
-        mPosition = position;
-    }
-}
-
-
-[CustomEditor(typeof(PathGrid))]
-public class PathGridEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        DrawDefaultInspector();
-
-        PathGrid script = (PathGrid)target;
-        if (GUILayout.Button("Test"))
-        {
-            script.CreateTileGrid();
-        }
-    }
-}
-
 [ExecuteInEditMode]
 public class PathGrid : MonoBehaviour
 {
-    public Transform player;
-    public LayerMask mUnwalkableMask;
-    public LayerMask mWallMask;
-    public LayerMask mPillarMask;
-    public Vector2 mGridWorldSize = new Vector2(20f, 20f);
-    public float mNodeRadius = 0.5f;
-    public float mWallRadius = 0.1f;
-    public float mTileHeight = 0.1f;
-    public float mWallHeight = 0.1f;
-    public float mOpacity = 0.75f;
+    public LayerMask unwalkableLayer;
+    public LayerMask wallLayer;
+    public LayerMask pillarLayer;
 
-    public bool highlightPlayerTile = true;
+    public Vector2 worldSize = new Vector2(20f, 20f);
+    float tileDiameter;
+    public float tileRadius = 0.5f;
+    public float tileHeight = 0.1f;
+
     public bool showWalkable = true;
     public bool showBlocked = true;
-    public bool showWalls = true;
 
-    private Tile[,] mTileGrid;
-    private Wall[,] mWallGrid;
+    public Tile[,] grid;
 
-    float mNodeDiameter;
-    int mGridSizeX, mGridSizeY;
+    public List<Tile> path;
+    public Color pathColor = Color.green;
+
+    int sizeX, sizeY;
 
     void Start()
     {
-        mNodeDiameter = mNodeRadius * 2;
+        tileDiameter = tileRadius * 2;
 
-        mGridSizeX = Mathf.RoundToInt(mGridWorldSize.x / mNodeDiameter);
-        mGridSizeY = Mathf.RoundToInt(mGridWorldSize.y / mNodeDiameter);
+        sizeX = Mathf.RoundToInt(worldSize.x / tileDiameter);
+        sizeY = Mathf.RoundToInt(worldSize.y / tileDiameter);
 
         CreateTileGrid();
-        CreateWallGrid();
     }
 
+    /// <summary>
+    /// This generates the tile grid.
+    /// </summary>
     public void CreateTileGrid()
     {
-        mTileGrid = new Tile[mGridSizeX, mGridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * mGridWorldSize.x / 2 - Vector3.forward * mGridWorldSize.y / 2;
-        worldBottomLeft -= new Vector3(mNodeDiameter, 0, mNodeDiameter);
-        for (int x = 0; x < mGridSizeX; x++)
-        {
-            for (int y = 0; y < mGridSizeY; y++)
-            {
-                Vector3 xOffset = Vector3.right * (x + mNodeDiameter + mNodeRadius);
-                Vector3 yOffset = Vector3.forward * (y + mNodeDiameter + mNodeRadius);
-                Vector3 worldPoint = worldBottomLeft + xOffset + yOffset;
-                bool walkable = !(Physics.CheckSphere(worldPoint, mNodeRadius, mUnwalkableMask));
+        // Create a new blank tile grid
+        grid = new Tile[sizeX, sizeY];
 
-                mTileGrid[x, y] = new Tile(walkable, worldPoint);
+        // Get the bottom left coordinate of our grid
+        Vector3 bottom = Vector3.right * worldSize.x / 2;
+        Vector3 left = Vector3.forward * worldSize.y / 2;
+        Vector3 offset = new Vector3(tileDiameter, 0, tileDiameter);
+        Vector3 worldBottomLeft = transform.position - bottom - left - offset;
+
+        // For each tile in our grid...
+        for (int x = 0; x < sizeX; x++)
+        {
+            for (int y = 0; y < sizeY; y++)
+            {
+                // Get the X and Y coordinates of the current tile
+                Vector3 xCoord = Vector3.right * (x + tileDiameter + tileRadius);
+                Vector3 yCoord = Vector3.forward * (y + tileDiameter + tileRadius);
+
+                // Get the world position of this tile
+                Vector3 worldPoint = worldBottomLeft + xCoord + yCoord;
+
+                // Do a physics check to see if this tile is walkable.
+                bool walkable = !(Physics.CheckSphere(worldPoint, tileRadius, unwalkableLayer));
+
+                // Create a new tile at this point, set whether it's walkable or not
+                // and set the current tile in our loop to this new tile we just
+                // created.
+                grid[x, y] = new Tile(walkable, worldPoint, x, y);
             }
         }
     }
 
-    public void CreateWallGrid()
+    // public void CreateWallGrid()
+    // {
+    //     mWallGrid = new Wall[sizeX, sizeY];
+    //     Vector3 worldBottomLeft = transform.position - Vector3.right * worldSize.x / 2 - Vector3.forward * worldSize.y / 2;
+    //     worldBottomLeft -= new Vector3(tileDiameter, 0, tileDiameter);
+    //     for (int x = 0; x < sizeX; x++)
+    //     {
+    //         for (int y = 0; y < sizeY; y++)
+    //         {
+    //             Vector3 xOffset = Vector3.right * (x + tileDiameter + tileRadius);
+    //             Vector3 yOffset = Vector3.forward * (y + tileDiameter + tileRadius);
+    //             Vector3 worldPoint = worldBottomLeft + xOffset + yOffset;
+
+    //             bool[] walkable = new bool[4];
+
+    //             Vector3 northPoint = worldPoint + new Vector3(tileDiameter, 0, tileRadius);
+    //             Vector3 westPoint = worldPoint + new Vector3(tileRadius, 0, 0);
+    //             Vector3 eastPoint = worldPoint + new Vector3(tileRadius, 0, tileDiameter);
+    //             Vector3 southPoint = worldPoint + new Vector3(0, 0, tileRadius);
+    //             Vector3[] bounds = new Vector3[] {northPoint, westPoint, eastPoint, southPoint};
+
+    //             walkable[0] = !(Physics.CheckSphere(northPoint, mWallRadius, wallLayer));
+    //             walkable[1] = !(Physics.CheckSphere(westPoint, mWallRadius, wallLayer));
+    //             walkable[2] = !(Physics.CheckSphere(eastPoint, mWallRadius, wallLayer));
+    //             walkable[3] = !(Physics.CheckSphere(southPoint, mWallRadius, wallLayer));
+
+    //             mWallGrid[x, y] = new Wall(walkable, bounds, worldPoint, x, y);
+    //         }
+    //     }
+    // }
+
+    /// <summary>
+    /// Given a tile, get its neighboring tiles. Indexed in the order of: 2, 4, 7, 1, -, 6, 0, 3, 5
+    /// </summary>
+    /// <param name="tile">The tile to get neighbors from.</param>
+    /// <returns>Returns the list of neighboring tiles.</returns>
+    public List<Tile> GetNeighbors(Tile tile)
     {
-        mWallGrid = new Wall[mGridSizeX, mGridSizeY];
-        Vector3 worldBottomLeft = transform.position - Vector3.right * mGridWorldSize.x / 2 - Vector3.forward * mGridWorldSize.y / 2;
-        worldBottomLeft -= new Vector3(mNodeDiameter, 0, mNodeDiameter);
-        for (int x = 0; x < mGridSizeX; x++)
+        // Create a new empty tile list
+        List<Tile> neighbors = new List<Tile>();
+
+        // Loop through and get the initial viable tiles
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = 0; y < mGridSizeY; y++)
+            for (int y = -1; y <= 1; y++)
             {
-                Vector3 xOffset = Vector3.right * (x + mNodeDiameter + mNodeRadius);
-                Vector3 yOffset = Vector3.forward * (y + mNodeDiameter + mNodeRadius);
-                Vector3 worldPoint = worldBottomLeft + xOffset + yOffset;
+                // If the coordinate is 0,0 then we're on the current tile
+                if (x == 0 && y == 0)
+                {
+                    continue;
+                }
 
-                bool[] walkable = new bool[4];
+                // The grid coordinates of the tile we're currently checking
+                int checkX = tile.x + x;
+                int checkY = tile.y + y;
 
-                Vector3 northPoint = worldPoint + new Vector3(mNodeDiameter, 0, mNodeRadius);
-                Vector3 westPoint = worldPoint + new Vector3(mNodeRadius, 0, 0);
-                Vector3 eastPoint = worldPoint + new Vector3(mNodeRadius, 0, mNodeDiameter);
-                Vector3 southPoint = worldPoint + new Vector3(0, 0, mNodeRadius);
-                Vector3[] bounds = new Vector3[] {northPoint, westPoint, eastPoint, southPoint};
+                // If the tile we're checking is not out of bounds of the grid (greater or less than the size)
+                if (checkX >= 0 && checkX < sizeX && checkY >= 0 && checkY < sizeY)
+                {
+                    // Get the tile object we're currently checking
+                    Tile neighbor = grid[checkX, checkY];
 
-                walkable[0] = !(Physics.CheckSphere(northPoint, mWallRadius, mWallMask));
-                walkable[1] = !(Physics.CheckSphere(westPoint, mWallRadius, mWallMask));
-                walkable[2] = !(Physics.CheckSphere(eastPoint, mWallRadius, mWallMask));
-                walkable[3] = !(Physics.CheckSphere(southPoint, mWallRadius, mWallMask));
+                    // Determine if the check tile is orthogonal relative to the current tile
+                    if (Mathf.Abs(x) == 0 && Mathf.Abs(y) == 1 || Mathf.Abs(x) == 1 && Mathf.Abs(y) == 0)
+                    {
+                        neighbor.ortho = true;
+                    }
 
-                mWallGrid[x, y] = new Wall(walkable, bounds, worldPoint);
+                    // Set the relative coordinate of this tile to the current x, y.
+                    neighbor.rx = x;
+                    neighbor.ry = y;
+
+                    // Add this tile to the list of neighbors
+                    neighbors.Add(neighbor);
+                }
             }
         }
+
+        return neighbors;
     }
 
-    public Tile NodeFromWorldPoint(Vector3 worldPosition)
+    /// <summary>
+    /// Returns the tile found from a given world position.
+    /// </summary>
+    /// <param name="worldPosition">The world position to try to find a tile at.</param>
+    /// <returns>The tile, if it's found.</returns>
+    public Tile TileFromWorldPoint(Vector3 worldPosition)
     {
-        float percentX = (worldPosition.x + mGridWorldSize.x / 2) / mGridWorldSize.x;
-        float percentY = (worldPosition.z + mGridWorldSize.y / 2) / mGridWorldSize.y;
+        // Get the percentage across and up on the grid
+        float percentX = (worldPosition.x + worldSize.x / 2) / worldSize.x;
+        float percentY = (worldPosition.z + worldSize.y / 2) / worldSize.y;
 
+        // Clamp the percentage values
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 
-        int x = Mathf.RoundToInt((mGridSizeX - 1) * percentX);
-        int y = Mathf.RoundToInt((mGridSizeY - 1) * percentY);
+        // Get the corresponding x, y coordinates
+        int x = Mathf.RoundToInt((sizeX - 1) * percentX);
+        int y = Mathf.RoundToInt((sizeY - 1) * percentY);
 
-        return mTileGrid[x, y];
-    }
-
-    Mesh InvertNormals(Mesh mesh)
-    {
-        mesh.triangles = mesh.triangles.Reverse().ToArray();
-        return mesh;
-    }
-
-    Mesh CreateTile()
-    {
-        Mesh tile = new Mesh();
-
-        float size = 1.0f;
-        Vector3 offset = new Vector3(0.5f, 0, 0.5f);
-        Vector3[] vertices = {
-            new Vector3 (0, 0, 0) - offset,
-            new Vector3 (size, 0, 0) - offset,
-            new Vector3 (size, mTileHeight, 0) - offset,
-            new Vector3 (0, mTileHeight, 0) - offset,
-            new Vector3 (0, mTileHeight, size) - offset,
-            new Vector3 (size, mTileHeight, size) - offset,
-            new Vector3 (size, 0, size) - offset,
-            new Vector3 (0, 0, size) - offset,
-        };
-        tile.vertices = vertices;
-
-		int[] triangles = {
-			0, 2, 1, //face front
-			0, 3, 2,
-			2, 3, 4, //face top
-			2, 4, 5,
-			1, 2, 5, //face right
-			1, 5, 6,
-			0, 7, 4, //face left
-			0, 4, 3,
-			5, 4, 7, //face back
-			5, 7, 6,
-			0, 6, 7, //face bottom
-			0, 1, 6
-		};
-        tile.triangles = triangles;
-
-        tile.Optimize();
-        tile.RecalculateNormals();
-
-        return tile;
-    }
-
-    Mesh CreateWall()
-    {
-        Mesh wall = new Mesh();
-
-        float size = 1.0f;
-        float depth = 1;
-        Vector3 offset = new Vector3(0.5f, 0, 0.5f);
-        Vector3[] vertices = {
-            new Vector3 (0, 0, 0) - offset,
-            new Vector3 (size / depth, 0, 0) - offset,
-            new Vector3 (size / depth, mWallHeight, 0) - offset,
-            new Vector3 (0, mWallHeight, 0) - offset,
-            new Vector3 (0, mWallHeight, size) - offset,
-            new Vector3 (size / depth, mWallHeight, size) - offset,
-            new Vector3 (size / depth, 0, size) - offset,
-            new Vector3 (0, 0, size) - offset,
-        };
-        wall.vertices = vertices;
-
-		int[] triangles = {
-			0, 2, 1, //face front
-			0, 3, 2,
-			2, 3, 4, //face top
-			2, 4, 5,
-			1, 2, 5, //face right
-			1, 5, 6,
-			0, 7, 4, //face left
-			0, 4, 3,
-			5, 4, 7, //face back
-			5, 7, 6,
-			0, 6, 7, //face bottom
-			0, 1, 6
-		};
-        wall.triangles = triangles;
-
-        wall.Optimize();
-        wall.RecalculateNormals();
-
-        return wall;
+        // Return the tile in the tile array based on the coordinates
+        return grid[x, y];
     }
 
     public void OnDrawGizmos()
     {
+        Gizmos.DrawWireCube(transform.position, new Vector3(worldSize.x, 1, worldSize.y));
         CreateTileGrid();
-        CreateWallGrid();
-        Gizmos.DrawWireCube(transform.position, new Vector3(mGridWorldSize.x, 1, mGridWorldSize.y));
+        Mesh tileMesh = Tile.GetMesh(tileDiameter, tileHeight);
 
-        Mesh tileMesh = CreateTile();
-        Mesh wallMesh = CreateWall();
-
-        if (mTileGrid != null)
+        // Draw the tile grid
+        if (grid != null)
         {
-            // Draw the main tile grid
-            Tile playerTile = NodeFromWorldPoint(player.position);
-            foreach (Tile tile in mTileGrid)
+            // For each tile in the grid
+            foreach (Tile tile in grid)
             {
-                Color tileColor = tile.mWalkable ? Color.green : Color.red;
-                if (playerTile == tile && highlightPlayerTile == true)
-                {
-                    tileColor = Color.cyan;
-                }
-                tileColor.a = mOpacity;
+                // Determine the tile color
+                Color tileColor = tile.walkable ? Color.green : Color.red;
                 Gizmos.color = tileColor;
 
                 // Blocked tiles
-                if (!tile.mWalkable)
+                if (!tile.walkable && showBlocked)
                 {
-                    if (showBlocked == false)
-                    {
-                        continue;
-                    }
-                    Gizmos.DrawMesh(wallMesh, tile.mPosition, Quaternion.identity, Vector3.one);
+                    Gizmos.DrawMesh(tileMesh, tile.position, Quaternion.identity, Vector3.one);
                 }
+
                 // Walkable tiles
-                else
+                if (tile.walkable && showWalkable)
                 {
-                    if (showWalkable == false)
-                    {
-                        continue;
-                    }
-                    Gizmos.DrawMesh(tileMesh, tile.mPosition, Quaternion.identity, Vector3.one);
+                    Gizmos.DrawMesh(tileMesh, tile.position, Quaternion.identity, Vector3.one);
                 }
             }
+        }
 
-            // Draw the wall grid
-            foreach (Wall wall in mWallGrid)
+        // Draw the movement path
+        if (path != null)
+        {
+            foreach (Tile tile in path)
             {
-                Color wallColor = Color.red;
-                wallColor.a = mOpacity;
-                Gizmos.color = wallColor;
-
-                for (int i = 0; i < wall.mBounds.Length; i++)
-                {
-                    bool walkable = wall.mWalkable[i];
-                    Vector3 bound = wall.mBounds[i];
-                    if (!walkable)
-                    {
-                        if (showWalls == false)
-                        {
-                            continue;
-                        }
-                        Gizmos.DrawMesh(wallMesh, bound, Quaternion.identity, Vector3.one);
-                    }
-                }
+                Gizmos.color = pathColor;
+                Gizmos.DrawSphere(tile.position, 0.25f);
             }
         }
     }

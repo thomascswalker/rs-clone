@@ -26,9 +26,4 @@ class DoorController : InteractiveObject
             actionName = "Open";
         }
     }
-
-    void Update()
-    {
-        Rescan();
-    }
 }
