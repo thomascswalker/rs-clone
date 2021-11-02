@@ -7,7 +7,7 @@ public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
     int targetIndex;
-    public float speed = 20;
+    public float speed = 0.01f;
 
     // Execute prior to game launch
     void Awake()
