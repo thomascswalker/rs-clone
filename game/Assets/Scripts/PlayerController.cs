@@ -25,9 +25,8 @@ public class PlayerController : MonoBehaviour
             // If we're clicking
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log("Mouse clicked!");
                 pathfinding.FindPath(transform.position, hit.point);
-                StartCoroutine(pathfinding.NavigatePath(this));
+                StartCoroutine(pathfinding.FollowPath(this));
             }
         }
     }

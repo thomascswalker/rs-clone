@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 627363199}
-  m_IndirectSpecularColor: {r: 0.284111, g: 0.370719, b: 0.5003632, a: 1}
+  m_IndirectSpecularColor: {r: 0.28411418, g: 0.36688405, b: 0.4713711, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -274,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -282,7 +282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -828,7 +828,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -879,13 +879,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 627363198}
-  m_LocalRotation: {x: -0.7313566, y: -0.39752257, z: 0.008116099, w: -0.5541005}
+  m_LocalRotation: {x: -0.68788916, y: -0.5962708, z: 0.4133038, w: 0.021205436}
   m_LocalPosition: {x: -13.38, y: -0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 54.78, y: 131.988, z: -263.039}
+  m_LocalEulerAnglesHint: {x: 27.627, y: 222.092, z: -251.02899}
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1124551831}
-  speed: 20
+  speed: 5
 --- !u!1 &1289447517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,7 +1436,6 @@ GameObject:
   - component: {fileID: 1480295378}
   - component: {fileID: 1480295377}
   - component: {fileID: 1480295376}
-  - component: {fileID: 1480295380}
   m_Layer: 7
   m_Name: Terrain
   m_TagString: Untagged
@@ -1521,18 +1520,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1480295380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480295375}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8233d90336aea43098adf6dbabd606a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1744707925
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1684,7 +1671,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1331757547}
   m_HandleRect: {fileID: 1331757546}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1.0001508
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

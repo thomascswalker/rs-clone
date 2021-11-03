@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading;
 
 [ExecuteInEditMode]
 public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
-    int targetIndex;
-    public float speed = 0.01f;
+    public float speed = 5f;
 
     // Execute prior to game launch
     void Awake()
@@ -127,23 +127,24 @@ public class Pathfinding : MonoBehaviour
         grid.path = path;
     }
 
-    public IEnumerator NavigatePath(PlayerController unit)
+    /// <summary>
+    /// Moves the unit along the current path.
+    /// </summary>
+    /// <param name="unit">The unit to move.</param>
+    /// <returns></returns>
+    public IEnumerator FollowPath(PlayerController unit)
     {
-        Tile currentWaypoint = grid.path[0];
-        while (true)
+        foreach(Tile tile in grid.path)
         {
-            Tile currentTile = grid.TileFromWorldPoint(unit.transform.position);
-            if (currentTile == currentWaypoint)
+            while (Vector3.Distance(unit.transform.position, tile.position) > .0001)
             {
-                targetIndex++;
-                if (targetIndex >= grid.path.Count)
-                {
-                    yield return null;
-                }
-                currentWaypoint = grid.path[targetIndex];
+                Vector3 current = unit.transform.position;
+                Vector3 target = tile.position;
+                float step = speed * Time.deltaTime;
+                
+                unit.transform.position = Vector3.MoveTowards(current, target, step);
+                yield return null;
             }
-            unit.transform.position = Vector3.MoveTowards(unit.transform.position, currentWaypoint.position, speed * Time.deltaTime);
-            yield return null;
         }
     }
 
