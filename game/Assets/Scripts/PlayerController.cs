@@ -6,12 +6,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Pathfinding pathfinding;
+    [SerializeField] private Animator animator = null;
 
     void Awake()
     {
         GameObject obj = GameObject.FindWithTag("Pathing");
         pathfinding = obj.GetComponent<Pathfinding>();
         Debug.Log(pathfinding);
+        animator.SetBool("isIdle", true);
     }
 
     // On every frame
@@ -27,6 +29,7 @@ public class PlayerController : MonoBehaviour
             {
                 pathfinding.FindPath(transform.position, hit.point);
                 StartCoroutine(pathfinding.FollowPath(this));
+                animator.SetBool("isIdle", false);
             }
         }
     }
