@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,8 @@ using System.Threading;
 public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
-    public float speed = 5f;
+    public float rotationSpeed = 10f;
+    public bool isMoving = false;
 
     // Execute prior to game launch
     void Awake()
@@ -134,18 +136,36 @@ public class Pathfinding : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FollowPath(PlayerController unit)
     {
+        isMoving = true;
+        GameObject model = unit.model;
+
+        // For each tile in the path
         foreach(Tile tile in grid.path)
         {
+            Vector3 target = tile.position;
+
+            // While we're further than 1/10000 units away from the target tile
             while (Vector3.Distance(unit.transform.position, tile.position) > .0001)
             {
+                // Update rotation
+                Vector3 direction = target - unit.transform.position;
+                if (direction != Vector3.zero)
+                {
+                    direction = direction.normalized;
+                    Quaternion rotation = Quaternion.LookRotation(direction);
+                    model.transform.rotation = Quaternion.Slerp(model.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+                }
+
+                // Update position
                 Vector3 current = unit.transform.position;
-                Vector3 target = tile.position;
-                float step = speed * Time.deltaTime;
-                
+                float step = unit.speed * Time.deltaTime;
                 unit.transform.position = Vector3.MoveTowards(current, target, step);
+
                 yield return null;
             }
         }
+
+        isMoving = false;
     }
 
     /// <summary>

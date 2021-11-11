@@ -6,14 +6,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Pathfinding pathfinding;
-    [SerializeField] private Animator animator = null;
+    private Animator animator;
+    public GameObject model;
+    private Coroutine movingCoroutine;
+    public float speed = 5.0f;
 
     void Awake()
     {
         GameObject obj = GameObject.FindWithTag("Pathing");
         pathfinding = obj.GetComponent<Pathfinding>();
+        animator = GetComponentInChildren<Animator>();
         Debug.Log(pathfinding);
-        animator.SetBool("isIdle", true);
+        Idle();
     }
 
     // On every frame
@@ -27,10 +31,30 @@ public class PlayerController : MonoBehaviour
             // If we're clicking
             if (Input.GetMouseButtonDown(0))
             {
+                if (pathfinding.isMoving)
+                {
+                    StopCoroutine(movingCoroutine);
+                }
                 pathfinding.FindPath(transform.position, hit.point);
-                StartCoroutine(pathfinding.FollowPath(this));
-                animator.SetBool("isIdle", false);
+                Run();
             }
         }
+
+        if (!pathfinding.isMoving)
+        {
+            Idle();
+        }
+    }
+
+    private void Idle()
+    {
+        animator.SetFloat("speed", 0);
+    }
+
+    private void Run()
+    {
+
+        movingCoroutine = StartCoroutine(pathfinding.FollowPath(this));
+        animator.SetFloat("speed", 1.0f);
     }
 }

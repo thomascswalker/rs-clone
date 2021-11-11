@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ca0fe8ff8203854081cf7d00cf0c376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 8321049176553807866}
+  model: {fileID: 8227343567107300358}
 --- !u!1 &7984135123058756902
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,16 +245,20 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 4b0499e3ddcf9b04d9885252d08124ec, type: 2}
+    - target: {fileID: 95509902755735526, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
+--- !u!1 &8227343567107300358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1260597861999642, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
+  m_PrefabInstance: {fileID: 8226141256422684700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8230881453237050204 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4759721911903040, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
-  m_PrefabInstance: {fileID: 8226141256422684700}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &8321049176553807866 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 95509902755735526, guid: d6d06c887a1aae94f8c6e8cc2c0c557b, type: 3}
   m_PrefabInstance: {fileID: 8226141256422684700}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5694557660891239215 stripped
