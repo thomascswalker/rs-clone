@@ -73,37 +73,6 @@ public class PathGrid : MonoBehaviour
         }
     }
 
-    // public void CreateWallGrid()
-    // {
-    //     mWallGrid = new Wall[sizeX, sizeY];
-    //     Vector3 worldBottomLeft = transform.position - Vector3.right * worldSize.x / 2 - Vector3.forward * worldSize.y / 2;
-    //     worldBottomLeft -= new Vector3(tileDiameter, 0, tileDiameter);
-    //     for (int x = 0; x < sizeX; x++)
-    //     {
-    //         for (int y = 0; y < sizeY; y++)
-    //         {
-    //             Vector3 xOffset = Vector3.right * (x + tileDiameter + tileRadius);
-    //             Vector3 yOffset = Vector3.forward * (y + tileDiameter + tileRadius);
-    //             Vector3 worldPoint = worldBottomLeft + xOffset + yOffset;
-
-    //             bool[] walkable = new bool[4];
-
-    //             Vector3 northPoint = worldPoint + new Vector3(tileDiameter, 0, tileRadius);
-    //             Vector3 westPoint = worldPoint + new Vector3(tileRadius, 0, 0);
-    //             Vector3 eastPoint = worldPoint + new Vector3(tileRadius, 0, tileDiameter);
-    //             Vector3 southPoint = worldPoint + new Vector3(0, 0, tileRadius);
-    //             Vector3[] bounds = new Vector3[] {northPoint, westPoint, eastPoint, southPoint};
-
-    //             walkable[0] = !(Physics.CheckSphere(northPoint, mWallRadius, wallLayer));
-    //             walkable[1] = !(Physics.CheckSphere(westPoint, mWallRadius, wallLayer));
-    //             walkable[2] = !(Physics.CheckSphere(eastPoint, mWallRadius, wallLayer));
-    //             walkable[3] = !(Physics.CheckSphere(southPoint, mWallRadius, wallLayer));
-
-    //             mWallGrid[x, y] = new Wall(walkable, bounds, worldPoint, x, y);
-    //         }
-    //     }
-    // }
-
     /// <summary>
     /// Given a tile, get its neighboring tiles. Indexed in the order of: 2, 4, 7, 1, -, 6, 0, 3, 5
     /// </summary>
@@ -134,16 +103,6 @@ public class PathGrid : MonoBehaviour
                 {
                     // Get the tile object we're currently checking
                     Tile neighbor = grid[checkX, checkY];
-
-                    // Determine if the check tile is orthogonal relative to the current tile
-                    if (Mathf.Abs(x) == 0 && Mathf.Abs(y) == 1 || Mathf.Abs(x) == 1 && Mathf.Abs(y) == 0)
-                    {
-                        neighbor.ortho = true;
-                    }
-
-                    // Set the relative coordinate of this tile to the current x, y.
-                    neighbor.rx = x;
-                    neighbor.ry = y;
 
                     // Add this tile to the list of neighbors
                     neighbors.Add(neighbor);

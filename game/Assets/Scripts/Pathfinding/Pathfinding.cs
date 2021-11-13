@@ -1,4 +1,4 @@
-using System.Collections.Specialized;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -72,8 +72,13 @@ public class Pathfinding : MonoBehaviour
                 // Skip if:
                 // The neighbor is not walkable
                 // The closed set already contains the neighbor
-                // The neighbor is not an orthogonal tile
-                if (!neighbor.walkable || closedSet.Contains(neighbor) || !neighbor.ortho)
+                if (!neighbor.walkable || closedSet.Contains(neighbor))
+                {
+                    continue;
+                }
+
+                // If the tile has a thin wall between, then we'll skip too
+                if (HasWallBetween(currentTile, neighbor))
                 {
                     continue;
                 }
@@ -188,5 +193,112 @@ public class Pathfinding : MonoBehaviour
 
         int distance = (14 * distanceX) + 10 * (distanceY - distanceX);
         return distance;
+    }
+
+    enum Direction
+    {
+        North,
+        NorthEast,
+        East,
+        SouthEast,
+        South,
+        SouthWest,
+        West,
+        NorthWest
+    }
+
+    Direction GetDirection(Tile tileA, Tile tileB)
+    {
+        int x = tileB.x - tileA.x;
+        int y = tileB.y - tileA.y;
+
+        switch (x, y)
+        {
+            case (0, 1):
+                return Direction.North;
+            case (1, 1):
+                return Direction.NorthEast;
+            case (1, 0):
+                return Direction.East;
+            case (1, -1):
+                return Direction.SouthEast;
+            case (0, -1):
+                return Direction.South;
+            case (-1, -1):
+                return Direction.SouthWest;
+            case (-1, 0):
+                return Direction.West;
+            case (-1, 1):
+                return Direction.NorthWest;
+            default:
+                throw new ArgumentOutOfRangeException("Coordinates are out of range");
+        }
+    }
+
+    Tile[] GetAdjacentTiles(Tile tileA, Tile tileB)
+    {
+        Tile[] adjacentTiles = new Tile[2];
+
+        Tile north = grid.grid[tileA.x, tileA.y + 1]; // North
+        Tile east = grid.grid[tileA.x + 1, tileA.y]; // North
+        Tile south = grid.grid[tileA.x, tileA.y - 1]; // North
+        Tile west = grid.grid[tileA.x - 1, tileA.y]; // North
+
+        Direction direction = GetDirection(tileA, tileB);
+
+        switch (direction)
+        {
+            case Direction.NorthEast:
+                adjacentTiles[0] = north;
+                adjacentTiles[1] = east;
+                break;
+            case Direction.SouthEast:
+                adjacentTiles[0] = south;
+                adjacentTiles[1] = east;
+                break;
+            case Direction.SouthWest:
+                adjacentTiles[0] = south;
+                adjacentTiles[1] = west;
+                break;
+            case Direction.NorthWest:
+                adjacentTiles[0] = north;
+                adjacentTiles[1] = west;
+                break;
+            default:
+                throw new ArgumentException("Something went wrong");
+        }
+
+        return adjacentTiles;
+    }
+    
+    bool HasWallBetween(Tile tileA, Tile tileB)
+    {
+        Direction direction = GetDirection(tileA, tileB);
+        Vector3 start = (tileA.position + tileB.position) / 2f;
+        Vector3 end = start + new Vector3(0, 1f, 0);
+        float radius = 0.5f;
+
+        if (direction == Direction.North || direction == Direction.East || direction == Direction.South || direction == Direction.West) // For orthogonal tiles
+        {
+            
+            bool blocked = Physics.CheckCapsule(start, end, radius, grid.wallLayer);
+            return blocked;
+        }
+        else // For diagonal tiles
+        {
+            Tile[] adjacentTiles = GetAdjacentTiles(tileA, tileB);
+            foreach (Tile tile in adjacentTiles)
+            {
+                Vector3 midpoint = (tileA.position + tile.position) / 2f;
+                bool blocked = Physics.CheckCapsule(start, end, radius, grid.wallLayer);
+                if (blocked)
+                {
+                    Debug.Log("Diagonal move!");
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

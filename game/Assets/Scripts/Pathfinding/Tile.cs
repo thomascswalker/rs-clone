@@ -19,12 +19,6 @@ public class Tile
 
     /// <value>The parent tile which is being moved from.</value>
     public Tile parent;
-    /// <value>Whether this tile is orthogonal in relation to the parent.</value>
-    public bool ortho;
-    /// <value>The relative x coordinate in relation to the parent.</value>
-    public int rx;
-    /// <value>The relative y coordinate in relation to the parent.</value>
-    public int ry;
 
     /// <value>The walls in relation to this tile.</value>
     public bool[] walls = new bool[4];
