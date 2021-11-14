@@ -8,11 +8,7 @@ using System.Threading;
 public class Pathfinding : MonoBehaviour
 {
     public PathGrid grid;
-    public float rotationSpeed = 10f;
-    public bool isMoving = false;
-
-    public Vector3 currentCheck;
-
+    
     // Execute prior to game launch
     void Awake()
     {
@@ -137,7 +133,7 @@ public class Pathfinding : MonoBehaviour
     /// <returns></returns>
     public IEnumerator FollowPath(PlayerController unit)
     {
-        isMoving = true;
+        unit.isMoving = true;
         GameObject model = unit.model;
 
         // For each tile in the path
@@ -154,23 +150,24 @@ public class Pathfinding : MonoBehaviour
                 {
                     direction = direction.normalized;
                     Quaternion rotation = Quaternion.LookRotation(direction);
-                    model.transform.rotation = Quaternion.Slerp(model.transform.rotation, rotation, rotationSpeed * Time.deltaTime);
+                    model.transform.rotation = Quaternion.Slerp(model.transform.rotation, rotation, unit.rotationSpeed * Time.deltaTime);
                 }
 
                 // Update position
                 Vector3 current = unit.transform.position;
-                float step = unit.speed * Time.deltaTime;
+                float step = unit.movementSpeed * Time.deltaTime;
                 unit.transform.position = Vector3.MoveTowards(current, target, step);
 
                 yield return null;
             }
         }
 
-        isMoving = false;
+        unit.isMoving = false;
     }
 
     /// <summary>
-    /// Gets the distance cost from one tile to another
+    /// Gets the distance cost from one tile to another. This is in relation to the distance towards
+    /// the final tile in the path.
     /// </summary>
     /// <param name="tileA">The first tile.</param>
     /// <param name="tileB">The second tile.</param>

@@ -275,7 +275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3744814706188403145, guid: 636e006ab17f6e64e95ea35a4fb5b07c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1343,6 +1343,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872c88adc5d43fe4a8cc0cfb05c8c99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldSize: {x: 20, y: 20}
+  tileRadius: 0.5
+  tileHeight: 0.1
   unwalkableLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -1351,14 +1354,10 @@ MonoBehaviour:
     m_Bits: 512
   pillarLayer:
     serializedVersion: 2
-    m_Bits: 0
-  worldSize: {x: 20, y: 20}
-  tileRadius: 0.5
-  tileHeight: 0.1
+    m_Bits: 1024
   showWalkable: 1
   showBlocked: 1
   pathColor: {r: 0, g: 0.4061408, b: 1, a: 1}
-  walls: []
 --- !u!4 &1124551832
 Transform:
   m_ObjectHideFlags: 0
@@ -1386,9 +1385,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 1124551831}
-  rotationSpeed: 10
-  isMoving: 0
-  currentCheck: {x: 0, y: 0, z: 0}
 --- !u!1001 &1126114908
 PrefabInstance:
   m_ObjectHideFlags: 0

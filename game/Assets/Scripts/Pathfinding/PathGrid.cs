@@ -10,26 +10,24 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class PathGrid : MonoBehaviour
 {
-    public LayerMask unwalkableLayer;
-    public LayerMask wallLayer;
-    public LayerMask pillarLayer;
-
+    [Header("Parameters")]
     public Vector2 worldSize = new Vector2(20f, 20f);
     float tileDiameter;
     public float tileRadius = 0.5f;
     public float tileHeight = 0.1f;
-
-    public bool showWalkable = true;
-    public bool showBlocked = true;
-
     public Tile[,] grid;
-
     public List<Tile> path;
-    public Color pathColor = Color.green;
-
     int sizeX, sizeY;
 
-    
+    [Header("Layers")]
+    public LayerMask unwalkableLayer;
+    public LayerMask wallLayer;
+    public LayerMask pillarLayer;
+
+    [Header("Display")]
+    public bool showWalkable = true;
+    public bool showBlocked = true;
+    public Color pathColor = Color.green;
 
     void Start()
     {

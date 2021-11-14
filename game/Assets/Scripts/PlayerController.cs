@@ -8,9 +8,13 @@ public class PlayerController : MonoBehaviour
     Pathfinding pathfinding;
     private Animator animator;
     public GameObject model;
-    private Coroutine movingCoroutine;
-    public float speed = 5.0f;
+    
     public LayerMask clickable;
+
+    private Coroutine movingCoroutine;
+    public bool isMoving = false;
+    public float movementSpeed = 5.0f;
+    public float rotationSpeed = 10f;
 
     void Awake()
     {
@@ -33,7 +37,7 @@ public class PlayerController : MonoBehaviour
             // If we're clicking
             if (Input.GetMouseButtonDown(0))
             {
-                if (pathfinding.isMoving)
+                if (isMoving)
                 {
                     StopCoroutine(movingCoroutine);
                 }
@@ -42,7 +46,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!pathfinding.isMoving)
+        if (!isMoving)
         {
             Idle();
         }
