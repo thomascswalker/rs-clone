@@ -1,3 +1,6 @@
+using System.Drawing;
+using System;
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,8 @@ public class PathGrid : MonoBehaviour
     public Color pathColor = Color.green;
 
     int sizeX, sizeY;
+
+    
 
     void Start()
     {
@@ -74,6 +79,24 @@ public class PathGrid : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if the given X/Y coords are within the bounds of the grid.
+    /// </summary>
+    /// <param name="x">The X coordinate of the tile to check.</param>
+    /// <param name="y">The Y coordinate of the tile to check.</param>
+    /// <returns>Whether the coordinates return a valid tile.</returns>
+    public Tile GetTile(int x, int y)
+    {
+        bool valid = x >= 0 && x < sizeX && y >= 0 && y < sizeY;
+
+        if (valid)
+        {
+            return grid[x, y];
+        }
+
+        return null;
+    }
+
+    /// <summary>
     /// Given a tile, get its neighboring tiles. Indexed in the order of: 2, 4, 7, 1, -, 6, 0, 3, 5
     /// </summary>
     /// <param name="tile">The tile to get neighbors from.</param>
@@ -98,15 +121,29 @@ public class PathGrid : MonoBehaviour
                 int checkX = tile.x + x;
                 int checkY = tile.y + y;
 
-                // If the tile we're checking is not out of bounds of the grid (greater or less than the size)
-                if (checkX >= 0 && checkX < sizeX && checkY >= 0 && checkY < sizeY)
-                {
-                    // Get the tile object we're currently checking
-                    Tile neighbor = grid[checkX, checkY];
+                // Get the tile object we're currently checking
+                Tile neighbor = GetTile(checkX, checkY);
 
-                    // Add this tile to the list of neighbors
-                    neighbors.Add(neighbor);
+                if (neighbor == null)
+                {
+                    continue;
                 }
+
+                // If the neighbor is not walkable, we'll skip this one
+                if (!neighbor.walkable)
+                {
+                    continue;
+                }
+
+                // Do a physics check if there's a wall inbetween
+                Vector3 midpoint = (tile.position + neighbor.position) / 2;
+                if (Physics.CheckSphere(midpoint, tileRadius / 2, wallLayer))
+                {
+                    continue;
+                }
+
+                // Add this tile to the list of neighbors
+                neighbors.Add(neighbor);
             }
         }
 

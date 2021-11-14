@@ -20,8 +20,6 @@ public class Tile
     /// <value>The parent tile which is being moved from.</value>
     public Tile parent;
 
-    /// <value>The walls in relation to this tile.</value>
-    public bool[] walls = new bool[4];
     /// <value>The pillars in relation to this tile.</value>
     public bool[] pillars = new bool[4];
 
