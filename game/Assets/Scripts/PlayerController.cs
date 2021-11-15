@@ -12,9 +12,12 @@ public class PlayerController : MonoBehaviour
     public LayerMask clickable;
 
     private Coroutine movingCoroutine;
+    private Coroutine actionCoroutine;
     public bool isMoving = false;
     public float movementSpeed = 5.0f;
     public float rotationSpeed = 10f;
+
+    private InteractiveObject queuedObject;
 
     void Awake()
     {
@@ -32,17 +35,11 @@ public class PlayerController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, clickable))
+        if (Input.GetMouseButtonDown(0))
         {
-            // If we're clicking
-            if (Input.GetMouseButtonDown(0))
+            if (Physics.Raycast(ray, out hit, clickable))
             {
-                if (isMoving)
-                {
-                    StopCoroutine(movingCoroutine);
-                }
-                pathfinding.FindPath(transform.position, hit.point);
-                Run();
+                OnLeftMouseClicked(hit);
             }
         }
 
@@ -52,6 +49,37 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnLeftMouseClicked(RaycastHit hit)
+    {
+        queuedObject = hit.transform.gameObject.GetComponent<InteractiveObject>();
+        if (queuedObject != null)
+        {
+            Debug.Log(hit.transform.gameObject.name);
+        }
+
+        pathfinding.FindPath(transform.position, hit.point);
+
+        if (isMoving)
+        {
+            StopCoroutine(movingCoroutine);
+            StopCoroutine(actionCoroutine);
+        }
+
+        movingCoroutine = StartCoroutine(pathfinding.FollowPath(this));
+        actionCoroutine = StartCoroutine(Action());
+        Run();
+    }
+
+    private IEnumerator Action()
+    {
+        while (isMoving)
+        {
+            yield return null;
+        }
+        queuedObject.ExecuteAction();
+        StopCoroutine(actionCoroutine);
+    }
+
     private void Idle()
     {
         animator.SetFloat("speed", 0);
@@ -59,8 +87,6 @@ public class PlayerController : MonoBehaviour
 
     private void Run()
     {
-
-        movingCoroutine = StartCoroutine(pathfinding.FollowPath(this));
         animator.SetFloat("speed", 1.0f);
     }
 }

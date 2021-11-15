@@ -13,7 +13,6 @@ class DoorController : InteractiveObject
         {
             Message.Message.Print("You open the door.");
             door.Play("DoorOpen", 0, 0.0f);
-            // gameObject.SetActive(false);
             open = true;
             actionName = "Close";
         }
@@ -21,7 +20,6 @@ class DoorController : InteractiveObject
         {
             Message.Message.Print("You close the door.");
             door.Play("DoorClose", 0, 0.0f);
-            // gameObject.SetActive(false);
             open = false;
             actionName = "Open";
         }

@@ -62,8 +62,8 @@ abstract class InteractiveObject : MonoBehaviour
         outline.enabled = false;
     }
 
-    private void OnMouseDown()
-    {
-        ExecuteAction();
-    }
+    // private void OnMouseDown()
+    // {
+    //     ExecuteAction();
+    // }
 }
