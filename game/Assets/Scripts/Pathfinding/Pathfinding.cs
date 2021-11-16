@@ -163,6 +163,12 @@ public class Pathfinding : MonoBehaviour
         }
 
         unit.isMoving = false;
+        ResetPath();
+    }
+
+    public void ResetPath()
+    {
+        grid.path = new List<Tile>();
     }
 
     /// <summary>

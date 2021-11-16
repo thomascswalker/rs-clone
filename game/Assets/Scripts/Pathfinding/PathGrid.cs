@@ -11,7 +11,7 @@ using UnityEditor;
 public class PathGrid : MonoBehaviour
 {
     [Header("Parameters")]
-    public Vector2 worldSize = new Vector2(20f, 20f);
+    public Vector2 worldSize = new Vector2(40f, 40f);
     float tileDiameter;
     public float tileRadius = 0.5f;
     public float tileHeight = 0.1f;

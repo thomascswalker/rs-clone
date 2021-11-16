@@ -11,8 +11,9 @@ public class PlayerController : MonoBehaviour
     
     public LayerMask clickable;
 
-    private Coroutine movingCoroutine;
-    private Coroutine actionCoroutine;
+    private Coroutine moving;
+    private Coroutine action;
+
     public bool isMoving = false;
     public float movementSpeed = 5.0f;
     public float rotationSpeed = 10f;
@@ -43,6 +44,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        // If we're not moving, we'll set our speed to zero to play the idle animation
         if (!isMoving)
         {
             Idle();
@@ -51,33 +53,39 @@ public class PlayerController : MonoBehaviour
 
     private void OnLeftMouseClicked(RaycastHit hit)
     {
+        // If we clicked on an interactive object, we'll store it here
         queuedObject = hit.transform.gameObject.GetComponent<InteractiveObject>();
-        if (queuedObject != null)
-        {
-            Debug.Log(hit.transform.gameObject.name);
-        }
 
+        // Find the path to the click point
         pathfinding.FindPath(transform.position, hit.point);
 
+        // If we're moving, we'll stop moving in order to create a new path to follow
         if (isMoving)
         {
-            StopCoroutine(movingCoroutine);
-            StopCoroutine(actionCoroutine);
+            StopCoroutine(moving);
+            StopCoroutine(action);
         }
 
-        movingCoroutine = StartCoroutine(pathfinding.FollowPath(this));
-        actionCoroutine = StartCoroutine(Action());
+        // We'll start moving now
+        moving = StartCoroutine(pathfinding.FollowPath(this));
+        // We'll also queue the action, if we've actually clicked something
+        if (queuedObject != null)
+        {
+            action = StartCoroutine(Action());
+        }
+
+        // Play the run animation
         Run();
     }
 
     private IEnumerator Action()
     {
-        while (isMoving)
-        {
-            yield return null;
-        }
+        // We'll wait until we're not moving to do the action
+        yield return new WaitUntil(() => isMoving == false);
+
+        // Execute the action from the clicked object
         queuedObject.ExecuteAction();
-        StopCoroutine(actionCoroutine);
+        yield break;
     }
 
     private void Idle()

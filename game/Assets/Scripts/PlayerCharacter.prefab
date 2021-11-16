@@ -46,6 +46,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 8227343567107300358}
+  clickable:
+    serializedVersion: 2
+    m_Bits: 0
+  isMoving: 0
+  movementSpeed: 5
+  rotationSpeed: 10
 --- !u!1 &7984135123058756902
 GameObject:
   m_ObjectHideFlags: 0
