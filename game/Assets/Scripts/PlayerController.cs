@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 5.0f;
     public float rotationSpeed = 10f;
 
-    private InteractiveObject queuedObject;
+    private GameObject queuedGameObject;
+    private InteractiveObject queuedInteractiveObject;
 
     void Awake()
     {
@@ -51,10 +52,43 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void StoreClickedObject(GameObject obj)
+    {
+        queuedGameObject = obj;
+        queuedInteractiveObject = queuedGameObject.GetComponent<InteractiveObject>();
+
+        if (queuedInteractiveObject == null)
+        {
+            queuedGameObject = null;
+        }
+    }
+
+    private float DistanceToQueuedGameObject()
+    {
+        float distance = Vector3.Distance(queuedGameObject.transform.position, transform.position);
+        return distance;
+    }
+
+    private bool CanMove()
+    {
+        if (queuedGameObject == null)
+        {
+            return true;
+        }
+
+        float distance = DistanceToQueuedGameObject();
+        return distance > 1.0f ? true : false;
+    }
+
+    private bool CanInteract()
+    {
+        return queuedInteractiveObject != null ? true : false;
+    }
+
     private void OnLeftMouseClicked(RaycastHit hit)
     {
         // If we clicked on an interactive object, we'll store it here
-        queuedObject = hit.transform.gameObject.GetComponent<InteractiveObject>();
+        StoreClickedObject(hit.transform.gameObject);
 
         // Find the path to the click point
         pathfinding.FindPath(transform.position, hit.point);
@@ -62,14 +96,16 @@ public class PlayerController : MonoBehaviour
         // If we're moving, we'll stop moving in order to create a new path to follow
         if (isMoving)
         {
-            StopCoroutine(moving);
-            StopCoroutine(action);
+            StopAll();
         }
 
         // We'll start moving now
-        moving = StartCoroutine(pathfinding.FollowPath(this));
+        if (CanMove())
+        {
+            moving = StartCoroutine(pathfinding.FollowPath(this));
+        }
         // We'll also queue the action, if we've actually clicked something
-        if (queuedObject != null)
+        if (CanInteract())
         {
             action = StartCoroutine(Action());
         }
@@ -78,13 +114,26 @@ public class PlayerController : MonoBehaviour
         Run();
     }
 
+    private void StopAll()
+    {
+        if (moving != null)
+        {
+            StopCoroutine(moving);
+        }
+        
+        if (action != null)
+        {
+            StopCoroutine(action);
+        }
+    }
+
     private IEnumerator Action()
     {
         // We'll wait until we're not moving to do the action
         yield return new WaitUntil(() => isMoving == false);
 
         // Execute the action from the clicked object
-        queuedObject.ExecuteAction();
+        queuedInteractiveObject.ExecuteAction();
         yield break;
     }
 
