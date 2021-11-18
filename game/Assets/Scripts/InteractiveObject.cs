@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using Console;
-using Message;
-// using Pathfinding;
+using UserInterface;
 
 [ExecuteInEditMode]
 abstract class InteractiveObject : MonoBehaviour
@@ -16,11 +13,14 @@ abstract class InteractiveObject : MonoBehaviour
     public bool rescan = false;
     private Outline outline;
     private Color color;
+    public Chatbox chatbox;
 
     public void Start()
     {
         outline = gameObject.GetComponent<Outline>();
         outline.enabled = false;
+
+        chatbox = GameObject.Find("Chatbox").GetComponent<Chatbox>();
 
         switch (type)
         {
@@ -52,18 +52,11 @@ abstract class InteractiveObject : MonoBehaviour
 
     public void OnMouseOver()
     {
-        Console.Console.Print(GetConsoleText());
         outline.enabled = true;
     }
 
     private void OnMouseExit()
     {
-        Console.Console.Clear();
         outline.enabled = false;
     }
-
-    // private void OnMouseDown()
-    // {
-    //     ExecuteAction();
-    // }
 }

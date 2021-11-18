@@ -11,17 +11,17 @@ class DoorController : InteractiveObject
     {
         if (!open)
         {
-            Message.Message.Print("You open the door.");
             door.Play("DoorOpen", 0, 0.0f);
             open = true;
             actionName = "Close";
+            chatbox.Log("You open the door.");
         }
         else 
         {
-            Message.Message.Print("You close the door.");
             door.Play("DoorClose", 0, 0.0f);
             open = false;
             actionName = "Open";
+            chatbox.Log("You close the door.");
         }
     }
 }

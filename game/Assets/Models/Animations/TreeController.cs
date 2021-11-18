@@ -6,6 +6,6 @@ class TreeController : InteractiveObject
 {
     public override void ExecuteAction()
     {
-        Debug.Log("Executing action");
+        chatbox.Log("You begin cutting the tree...");
     }
 }

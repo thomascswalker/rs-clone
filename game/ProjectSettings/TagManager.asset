@@ -4,14 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - UICanvas
-  - UIViewport
-  - UIMinimap
-  - UIConsole
-  - UICommandPanel
   - Interactive
   - Walkable
-  - UIMessage
   - Pathing
   layers:
   - Default

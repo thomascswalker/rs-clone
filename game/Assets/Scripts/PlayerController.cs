@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,11 +34,17 @@ public class PlayerController : MonoBehaviour
     // On every frame
     void Update()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
         if (Input.GetMouseButtonDown(0))
         {
+            // If we're clicking on the UI, we want to return so we don't click-through
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            // Otherwise we'll do a raycast to see where we clicked in the game
             if (Physics.Raycast(ray, out hit, clickable))
             {
                 OnLeftMouseClicked(hit);

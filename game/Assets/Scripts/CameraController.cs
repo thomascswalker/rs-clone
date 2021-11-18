@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-using Console;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -31,16 +30,12 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        HandleMouse();
+        HandleZoom();
         HandleInput();
     }
 
     void HandleInput()
     {
-        // Handle zoom
-        distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        distance = Mathf.Clamp(distance, minDistance, maxDistance);
-
         // Follow target
         Vector3 pos = target.position + offset;
         pos -= transform.forward * distance;
@@ -87,8 +82,16 @@ public class CameraController : MonoBehaviour
         return false;
     }
 
-    void HandleMouse()
+    void HandleZoom()
     {
+        // If we're clicking on the UI, we want to return so we don't click-through
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
+        // Handle zoom
+        distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        distance = Mathf.Clamp(distance, minDistance, maxDistance);
     }
 }
