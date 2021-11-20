@@ -11,8 +11,9 @@ public class CameraController : MonoBehaviour
 
     [Header("Distance")]
     public float distance;
-    public float minDistance;
-    public float maxDistance;
+    public float fov = 90f;
+    public float minFov = 10f;
+    public float maxFov = 120f;
     public Vector3 offset;
     
     [Header("Speed")]
@@ -21,6 +22,13 @@ public class CameraController : MonoBehaviour
 
     private Ray ray;
     private RaycastHit hit;
+
+    private Camera camera;
+
+    void Start()
+    {
+        camera = GetComponent<Camera>();
+    }
 
     void Update()
     {
@@ -70,7 +78,8 @@ public class CameraController : MonoBehaviour
         }
 
         // Handle zoom
-        distance -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
-        distance = Mathf.Clamp(distance, minDistance, maxDistance);
+        fov -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
+        fov = Mathf.Clamp(fov, minFov, maxFov);
+        camera.fieldOfView = fov;
     }
 }

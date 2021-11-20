@@ -113,8 +113,8 @@ Material:
     - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0
-    - _SSSFresnel: 0.8588235
+    - _Roughness: 0.25
+    - _SSSFresnel: 0
     - _SSSIntensity: 0
     - _Shininess: 1
     - _Smoothness: 0.05
