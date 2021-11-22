@@ -23,11 +23,9 @@ public class CameraController : MonoBehaviour
     private Ray ray;
     private RaycastHit hit;
 
-    private Camera camera;
-
     void Start()
     {
-        camera = GetComponent<Camera>();
+
     }
 
     void Update()
@@ -80,6 +78,6 @@ public class CameraController : MonoBehaviour
         // Handle zoom
         fov -= Input.GetAxis("Mouse ScrollWheel") * scrollSpeed;
         fov = Mathf.Clamp(fov, minFov, maxFov);
-        camera.fieldOfView = fov;
+        GetComponent<Camera>().fieldOfView = fov;
     }
 }

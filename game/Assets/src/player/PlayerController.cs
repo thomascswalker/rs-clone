@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 10f;
 
     private GameObject queuedGameObject;
-    private InteractiveObject queuedInteractiveObject;
+    private Interactive queuedInteractiveObject;
 
     void Awake()
     {
@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     private void StoreClickedObject(GameObject obj)
     {
         queuedGameObject = obj;
-        queuedInteractiveObject = queuedGameObject.GetComponent<InteractiveObject>();
+        queuedInteractiveObject = queuedGameObject.GetComponent<Interactive>();
 
         if (queuedInteractiveObject == null)
         {
@@ -139,7 +139,16 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => isMoving == false);
 
         // Execute the action from the clicked object
-        queuedInteractiveObject.ExecuteAction();
+        Debug.Log(queuedInteractiveObject);
+        if (queuedInteractiveObject.GetType().GetMethod("ExecuteAction") != null)
+        {
+            queuedInteractiveObject.ExecuteAction();
+        }
+        else
+        {
+            Debug.Log("No action found!");
+        }
+        
         yield break;
     }
 

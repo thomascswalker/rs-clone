@@ -70,7 +70,7 @@ Transform:
   - {fileID: 6953183961857397951}
   - {fileID: 2090865957198021772}
   - {fileID: 1171618188835230557}
-  - {fileID: 8567606772734562851}
+  - {fileID: 8069579257265675131}
   - {fileID: 7056104973314260782}
   - {fileID: 8560541037154750706}
   - {fileID: 7470452015530729744}
@@ -2301,6 +2301,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1825769121583091415, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
+      propertyPath: examineText
+      value: A door.
+      objectReference: {fileID: 0}
     - target: {fileID: 2258117375491783872, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -2349,11 +2353,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6402235134645760395, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
+      propertyPath: m_RootOrder
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402235134645760395, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
---- !u!4 &8567606772734562851 stripped
+--- !u!4 &8069579257265675131 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4738888021454665939, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6402235134645760395, guid: e766660fa7510054f8ca7b64232d2a71, type: 3}
   m_PrefabInstance: {fileID: 3973768593131940592}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3999176847117908577

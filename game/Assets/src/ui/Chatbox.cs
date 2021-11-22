@@ -9,31 +9,30 @@ namespace UserInterface
 {
     public class Chatbox : MonoBehaviour
     {
-        [SerializeField]
-        private Font mFont;
+        public static Chatbox Instance {get; private set;}
 
-        private RectTransform mContent;
-        private List<GameObject> mMessageItems;
+        [SerializeField]
+        private Font m_Font;
+
+        private RectTransform m_Content;
+        private List<GameObject> m_Items;
 
         // Start is called before the first frame update
         void Start()
         {
+            Instance = this;
+
             ScrollRect scrollRect = this.GetComponent<ScrollRect>();
-            mContent = scrollRect.content;
+            m_Content = scrollRect.content;
 
-            mMessageItems = new List<GameObject>();
+            m_Items = new List<GameObject>();
         }
 
-        void Update()
-        {
-
-        }
-
-        public void Log(string message)
+        public void Log(string message, Color? color = null)
         {
             // Create the new message object
             GameObject newMessage = new GameObject();
-            newMessage.transform.SetParent(mContent.transform);
+            newMessage.transform.SetParent(m_Content.transform);
             newMessage.SetActive(true);
 
             // Control the size of the object
@@ -47,9 +46,9 @@ namespace UserInterface
             Text messageText = newMessage.AddComponent<Text>();
             string time = DateTime.Now.ToString("h:mm:ss tt");
             messageText.text = "[" + time + "] " + message;
-            messageText.font = mFont;
+            messageText.font = m_Font;
             messageText.fontSize = 24;
-            messageText.color = Color.white;
+            messageText.color = color ?? Color.white;
         }
     }
 }
