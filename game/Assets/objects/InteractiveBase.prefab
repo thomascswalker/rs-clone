@@ -47,7 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  actions: []
+  displayName: 
+  m_Actions: []
 --- !u!33 &4240889190408752936
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -75,6 +76,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: adb96685b8104414fb143f5d3ddbd1f3, type: 2}
+  - {fileID: 2100000, guid: adb96685b8104414fb143f5d3ddbd1f3, type: 2}
+  - {fileID: 2100000, guid: adb96685b8104414fb143f5d3ddbd1f3, type: 2}
   - {fileID: 2100000, guid: adb96685b8104414fb143f5d3ddbd1f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
