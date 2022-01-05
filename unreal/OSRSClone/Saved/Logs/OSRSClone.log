@@ -2004,3 +2004,292 @@ Make sure 'SkillSlot_C' has been compiled for  Add Experience
 [2022.01.05-23.23.28:234][148]LogContentValidation: Display: Validating MapBuildDataRegistry /Game/Maps/Sandbox_BuiltData.Sandbox_BuiltData
 [2022.01.05-23.23.28:234][148]LogContentValidation: Display: Validating World /Game/Maps/Sandbox.Sandbox
 [2022.01.05-23.23.30:058][360]LogUObjectHash: Compacting FUObjectHashTables data took   0.55ms
+[2022.01.05-23.24.34:725][563]LogFactory: FactoryCreateFile: FontFace with FontFileImportFactory (0 0 C:\Users\Tom\Documents\GitHub\rs-clone\unreal\OSRSClone\Content\Fonts\runescape_uf.ttf)
+[2022.01.05-23.24.37:757][563]LogSlate: Window 'Font Face Import Options' being destroyed
+[2022.01.05-23.24.37:762][563]Message dialog closed, result: YesAll, title: Font Face Import Options, text: Would you like to create a new Font asset using the imported Font Face as its default font?
+[2022.01.05-23.24.37:764][563]LogSlate: FontCache flush requested. Reason: UFontFace::PostEditChangeProperty
+[2022.01.05-23.24.37:765][563]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.24.37:775][563]LogSlate: Took 0.000343 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Light.ttf' (167K)
+[2022.01.05-23.24.37:777][563]LogSlate: Took 0.000184 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Regular.ttf' (155K)
+[2022.01.05-23.24.37:793][563]LogSlate: Took 0.000274 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-Bold.ttf' (160K)
+[2022.01.05-23.24.37:801][563]LogSlate: Took 0.000322 seconds to synchronously load lazily loaded font '../../../Engine/Content/Editor/Slate/Fonts/FontAwesome.ttf' (139K)
+[2022.01.05-23.24.40:060][815]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/Sandbox" FILE="../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Maps/Sandbox.umap" SILENT=true AUTOSAVING=false KEEPDIRTY=false
+[2022.01.05-23.24.40:076][815]LogUObjectHash: Compacting FUObjectHashTables data took   1.89ms
+[2022.01.05-23.24.40:226][815]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/SandboxEA796FDA4AEE2C91210CED9E86A3A7CF.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Maps/Sandbox.umap'
+[2022.01.05-23.24.40:242][815]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Maps/Sandbox_BuiltData" FILE="../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Maps/Sandbox_BuiltData.uasset" SILENT=true
+[2022.01.05-23.24.40:247][815]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/Sandbox_BuiltDataC70F3D1A4194EDEEEB5B508926A40C1F.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Maps/Sandbox_BuiltData.uasset'
+[2022.01.05-23.24.40:266][815]AssetCheck: New page: Asset Save: multiple assets
+[2022.01.05-23.24.40:266][815]LogContentValidation: Display: Validating MapBuildDataRegistry /Game/Maps/Sandbox_BuiltData.Sandbox_BuiltData
+[2022.01.05-23.24.40:266][815]LogContentValidation: Display: Validating World /Game/Maps/Sandbox.Sandbox
+[2022.01.05-23.24.45:391][403]LogAssetEditorSubsystem: Opening Asset editor for DataTable /Game/Blueprints/UserInterface/TextStyles.TextStyles
+[2022.01.05-23.24.50:153][778]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/TextStylesBF273A9441CCB94E42CECE86028362EE.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/TextStyles.uasset'
+[2022.01.05-23.24.50:173][778]AssetCheck: New page: Asset Save: TextStyles
+[2022.01.05-23.24.50:174][778]LogContentValidation: Display: Validating DataTable /Game/Blueprints/UserInterface/TextStyles.TextStyles
+[2022.01.05-23.24.50:684][823]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/TextStylesCDF4435F4D95CBDEFE852F810D9E7663.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/TextStyles.uasset'
+[2022.01.05-23.24.50:702][823]AssetCheck: New page: Asset Save: TextStyles
+[2022.01.05-23.24.50:702][823]LogContentValidation: Display: Validating DataTable /Game/Blueprints/UserInterface/TextStyles.TextStyles
+[2022.01.05-23.25.04:257][917]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/TextStyles6F310E494A62A08D598C11B45B45D824.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/TextStyles.uasset'
+[2022.01.05-23.25.04:280][917]AssetCheck: New page: Asset Save: TextStyles
+[2022.01.05-23.25.04:280][917]LogContentValidation: Display: Validating DataTable /Game/Blueprints/UserInterface/TextStyles.TextStyles
+[2022.01.05-23.25.04:784][960]LogSlate: Window 'TextStyles' being destroyed
+[2022.01.05-23.25.05:400][ 24]LogTemp: Repeating last play command: Selected Viewport
+[2022.01.05-23.25.05:410][ 24]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2022.01.05-23.25.05:410][ 24]PIE: New page: PIE session: Sandbox (Jan 5, 2022, 1:25:05 PM)
+[2022.01.05-23.25.05:441][ 24]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.25.05:466][ 24]LogPlayLevel: PIE: StaticDuplicateObject took: (0.025282s)
+[2022.01.05-23.25.05:467][ 24]LogAIModule: Creating AISystem for world Sandbox
+[2022.01.05-23.25.05:467][ 24]LogPlayLevel: PIE: World Init took: (0.001243s)
+[2022.01.05-23.25.05:467][ 24]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/Sandbox.Sandbox to /Game/Maps/UEDPIE_0_Sandbox.Sandbox (0.026688s)
+[2022.01.05-23.25.05:551][ 24]LogUObjectHash: Compacting FUObjectHashTables data took   3.72ms
+[2022.01.05-23.25.05:553][ 24]LogAudio: Display: Creating Audio Device:                 Id: 16, Scope: Unique, Realtime: True
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2022.01.05-23.25.05:554][ 24]LogAudio: Display: AudioDevice MaxSources: 32
+[2022.01.05-23.25.05:554][ 24]LogAudio: Display: Using built-in audio occlusion.
+[2022.01.05-23.25.05:554][ 24]LogAudioMixer: Display: Initializing audio mixer.
+[2022.01.05-23.25.05:559][ 24]LogAudioMixer: Display: 0: FrontLeft
+[2022.01.05-23.25.05:560][ 24]LogAudioMixer: Display: 1: FrontRight
+[2022.01.05-23.25.05:566][ 24]LogAudioMixer: Display: Using Audio Device Speakers (Focusrite Usb Audio)
+[2022.01.05-23.25.05:566][ 24]LogAudioMixer: Display: Initializing Sound Submixes...
+[2022.01.05-23.25.05:566][ 24]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2022.01.05-23.25.05:566][ 24]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2022.01.05-23.25.05:567][ 24]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2022.01.05-23.25.05:567][ 24]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2022.01.05-23.25.05:567][ 24]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2022.01.05-23.25.05:582][ 24]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2022.01.05-23.25.05:582][ 24]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2022.01.05-23.25.05:582][ 24]LogInit: FAudioDevice initialized.
+[2022.01.05-23.25.05:583][ 24]LogAudio: Display: Audio Device (ID: 16) registered with world 'Sandbox'.
+[2022.01.05-23.25.05:591][ 24]LogLoad: Game class is '_GameMode_C'
+[2022.01.05-23.25.05:596][ 24]LogWorld: Bringing World /Game/Maps/UEDPIE_0_Sandbox.Sandbox up for play (max tick rate 0) at 2022.01.05-18.25.05
+[2022.01.05-23.25.05:596][ 24]LogWorld: Bringing up level for play took: 0.003869
+[2022.01.05-23.25.05:601][ 24]LogOnline: OSS: Creating online subsystem instance for: :Context_36
+[2022.01.05-23.25.05:612][ 24]PIE: Server logged in
+[2022.01.05-23.25.05:613][ 24]PIE: Play in editor total start time 0.204 seconds.
+[2022.01.05-23.25.12:082][726]Cmd: LevelEditor.ToggleImmersive
+[2022.01.05-23.25.29:973][854]Cmd: LevelEditor.ToggleImmersive
+[2022.01.05-23.25.30:273][863]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.25.30:273][863]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.25.30:273][863]LogWorld: UWorld::CleanupWorld for Sandbox, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.25.30:274][863]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.25.30:281][863]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2022.01.05-23.25.30:287][863]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.25.30:301][863]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2022.01.05-23.25.30:314][863]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.25.30:315][863]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.25.30:333][863]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.25.30:365][863]LogUObjectHash: Compacting FUObjectHashTables data took   2.57ms
+[2022.01.05-23.25.30:398][864]LogPlayLevel: Display: Destroying online subsystem :Context_36
+[2022.01.05-23.25.31:230][956]LogUObjectHash: Compacting FUObjectHashTables data took   1.95ms
+[2022.01.05-23.25.31:257][956]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Fonts/runescape_uf" FILE="../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Fonts/runescape_uf.uasset" SILENT=true
+[2022.01.05-23.25.31:258][956]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/runescape_uf081FDE9B4DD58D95992DE08CFAC450C8.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Fonts/runescape_uf.uasset'
+[2022.01.05-23.25.31:268][956]Cmd: OBJ SAVEPACKAGE PACKAGE="/Game/Fonts/runescape_uf_Font" FILE="../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Fonts/runescape_uf_Font.uasset" SILENT=true
+[2022.01.05-23.25.31:271][956]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/runescape_uf_Font6FB34A304FA54C1F35A6FB85B321B5A5.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Fonts/runescape_uf_Font.uasset'
+[2022.01.05-23.25.31:287][956]AssetCheck: New page: Asset Save: multiple assets
+[2022.01.05-23.25.31:287][956]LogContentValidation: Display: Validating Font /Game/Fonts/runescape_uf_Font.runescape_uf_Font
+[2022.01.05-23.25.31:287][956]LogContentValidation: Display: Validating FontFace /Game/Fonts/runescape_uf.runescape_uf
+[2022.01.05-23.25.52:120][ 24]LogUObjectHash: Compacting FUObjectHashTables data took   1.91ms
+[2022.01.05-23.26.08:961][ 16]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Blueprints/UserInterface/Chatbox.Chatbox
+[2022.01.05-23.26.09:496][ 16]LogSlate: Took 0.000334 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/Roboto-BoldCondensed.ttf' (158K)
+[2022.01.05-23.26.10:751][124]LogSlate: Window 'Chatbox' being destroyed
+[2022.01.05-23.26.10:791][124]LogWorld: UWorld::CleanupWorld for World_32, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.10:791][124]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.10:802][124]LogWorld: UWorld::CleanupWorld for World_31, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.10:802][124]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.12:361][291]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.19:305][776]BlueprintLog: New page: Compile ChatboxMessage
+[2022.01.05-23.26.19:334][776]LogUObjectHash: Compacting FUObjectHashTables data took   2.49ms
+[2022.01.05-23.26.19:421][776]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessage4ABCCD134ADD92D3080D198633DB09C9.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.19:449][776]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.19:449][776]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.19:488][776]LogSlate: Took 0.000321 seconds to synchronously load lazily loaded font '../../../Engine/Content/Slate/Fonts/DroidSansMono.ttf' (77K)
+[2022.01.05-23.26.20:025][812]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessage2446EDC94EEB80F011F4D29FAB6087B7.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.20:042][812]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.20:042][812]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.21:188][892]LogSlate: Window 'ChatboxMessage' being destroyed
+[2022.01.05-23.26.21:221][892]LogWorld: UWorld::CleanupWorld for World_34, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.21:221][892]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.21:232][892]LogWorld: UWorld::CleanupWorld for World_33, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.21:232][892]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.21:957][963]LogTemp: Repeating last play command: Selected Viewport
+[2022.01.05-23.26.21:967][963]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2022.01.05-23.26.21:967][963]PIE: New page: PIE session: Sandbox (Jan 5, 2022, 1:26:21 PM)
+[2022.01.05-23.26.21:991][963]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.26.22:015][963]LogPlayLevel: PIE: StaticDuplicateObject took: (0.024576s)
+[2022.01.05-23.26.22:016][963]LogAIModule: Creating AISystem for world Sandbox
+[2022.01.05-23.26.22:017][963]LogPlayLevel: PIE: World Init took: (0.001200s)
+[2022.01.05-23.26.22:017][963]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/Sandbox.Sandbox to /Game/Maps/UEDPIE_0_Sandbox.Sandbox (0.025943s)
+[2022.01.05-23.26.22:039][963]LogUObjectHash: Compacting FUObjectHashTables data took   2.85ms
+[2022.01.05-23.26.22:040][963]LogAudio: Display: Creating Audio Device:                 Id: 17, Scope: Unique, Realtime: True
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2022.01.05-23.26.22:040][963]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2022.01.05-23.26.22:040][963]LogAudio: Display: AudioDevice MaxSources: 32
+[2022.01.05-23.26.22:041][963]LogAudio: Display: Using built-in audio occlusion.
+[2022.01.05-23.26.22:041][963]LogAudioMixer: Display: Initializing audio mixer.
+[2022.01.05-23.26.22:046][963]LogAudioMixer: Display: 0: FrontLeft
+[2022.01.05-23.26.22:046][963]LogAudioMixer: Display: 1: FrontRight
+[2022.01.05-23.26.22:052][963]LogAudioMixer: Display: Using Audio Device Speakers (Focusrite Usb Audio)
+[2022.01.05-23.26.22:052][963]LogAudioMixer: Display: Initializing Sound Submixes...
+[2022.01.05-23.26.22:052][963]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2022.01.05-23.26.22:052][963]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2022.01.05-23.26.22:053][963]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2022.01.05-23.26.22:053][963]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2022.01.05-23.26.22:053][963]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2022.01.05-23.26.22:069][963]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2022.01.05-23.26.22:069][963]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2022.01.05-23.26.22:069][963]LogInit: FAudioDevice initialized.
+[2022.01.05-23.26.22:069][963]LogAudio: Display: Audio Device (ID: 17) registered with world 'Sandbox'.
+[2022.01.05-23.26.22:077][963]LogLoad: Game class is '_GameMode_C'
+[2022.01.05-23.26.22:082][963]LogWorld: Bringing World /Game/Maps/UEDPIE_0_Sandbox.Sandbox up for play (max tick rate 0) at 2022.01.05-18.26.22
+[2022.01.05-23.26.22:082][963]LogWorld: Bringing up level for play took: 0.004242
+[2022.01.05-23.26.22:087][963]LogOnline: OSS: Creating online subsystem instance for: :Context_41
+[2022.01.05-23.26.22:099][963]PIE: Server logged in
+[2022.01.05-23.26.22:100][963]PIE: Play in editor total start time 0.134 seconds.
+[2022.01.05-23.26.23:670][139]Cmd: LevelEditor.ToggleImmersive
+[2022.01.05-23.26.30:250][909]Cmd: LevelEditor.ToggleImmersive
+[2022.01.05-23.26.30:563][919]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.26.30:563][919]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.26.30:563][919]LogWorld: UWorld::CleanupWorld for Sandbox, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.30:564][919]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.30:576][919]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2022.01.05-23.26.30:582][919]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.30:598][919]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.26.30:599][919]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.26.30:600][919]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.26.30:623][919]LogUObjectHash: Compacting FUObjectHashTables data took   2.16ms
+[2022.01.05-23.26.30:655][920]LogPlayLevel: Display: Destroying online subsystem :Context_41
+[2022.01.05-23.26.31:628][ 27]LogAssetEditorSubsystem: Opening Asset editor for WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.41:778][743]BlueprintLog: New page: Compile ChatboxMessage
+[2022.01.05-23.26.41:803][743]LogUObjectHash: Compacting FUObjectHashTables data took   2.41ms
+[2022.01.05-23.26.41:890][743]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessage106D8EE44306914B6D8D9C85F78CD322.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.41:914][743]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.41:914][743]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.42:211][759]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessage1462A8FF46A8D992CE0C66A9507890C5.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.42:229][759]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.42:230][759]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.42:768][795]LogTemp: Repeating last play command: Selected Viewport
+[2022.01.05-23.26.42:778][795]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2022.01.05-23.26.42:778][795]PIE: New page: PIE session: Sandbox (Jan 5, 2022, 1:26:42 PM)
+[2022.01.05-23.26.42:801][795]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.26.42:826][795]LogPlayLevel: PIE: StaticDuplicateObject took: (0.025016s)
+[2022.01.05-23.26.42:826][795]LogAIModule: Creating AISystem for world Sandbox
+[2022.01.05-23.26.42:827][795]LogPlayLevel: PIE: World Init took: (0.001285s)
+[2022.01.05-23.26.42:827][795]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/Sandbox.Sandbox to /Game/Maps/UEDPIE_0_Sandbox.Sandbox (0.026501s)
+[2022.01.05-23.26.42:851][795]LogUObjectHash: Compacting FUObjectHashTables data took   2.65ms
+[2022.01.05-23.26.42:851][795]LogAudio: Display: Creating Audio Device:                 Id: 18, Scope: Unique, Realtime: True
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2022.01.05-23.26.42:851][795]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2022.01.05-23.26.42:851][795]LogAudio: Display: AudioDevice MaxSources: 32
+[2022.01.05-23.26.42:852][795]LogAudio: Display: Using built-in audio occlusion.
+[2022.01.05-23.26.42:852][795]LogAudioMixer: Display: Initializing audio mixer.
+[2022.01.05-23.26.42:857][795]LogAudioMixer: Display: 0: FrontLeft
+[2022.01.05-23.26.42:857][795]LogAudioMixer: Display: 1: FrontRight
+[2022.01.05-23.26.42:864][795]LogAudioMixer: Display: Using Audio Device Speakers (Focusrite Usb Audio)
+[2022.01.05-23.26.42:864][795]LogAudioMixer: Display: Initializing Sound Submixes...
+[2022.01.05-23.26.42:864][795]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2022.01.05-23.26.42:864][795]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2022.01.05-23.26.42:865][795]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2022.01.05-23.26.42:865][795]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2022.01.05-23.26.42:865][795]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2022.01.05-23.26.42:880][795]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2022.01.05-23.26.42:880][795]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2022.01.05-23.26.42:880][795]LogInit: FAudioDevice initialized.
+[2022.01.05-23.26.42:880][795]LogAudio: Display: Audio Device (ID: 18) registered with world 'Sandbox'.
+[2022.01.05-23.26.42:893][795]LogLoad: Game class is '_GameMode_C'
+[2022.01.05-23.26.42:897][795]LogWorld: Bringing World /Game/Maps/UEDPIE_0_Sandbox.Sandbox up for play (max tick rate 0) at 2022.01.05-18.26.42
+[2022.01.05-23.26.42:898][795]LogWorld: Bringing up level for play took: 0.004457
+[2022.01.05-23.26.42:903][795]LogOnline: OSS: Creating online subsystem instance for: :Context_44
+[2022.01.05-23.26.42:915][795]PIE: Server logged in
+[2022.01.05-23.26.42:916][795]PIE: Play in editor total start time 0.138 seconds.
+[2022.01.05-23.26.44:987][935]Cmd: LevelEditor.ToggleImmersive
+[2022.01.05-23.26.47:552][178]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.26.47:552][178]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.26.47:552][178]LogWorld: UWorld::CleanupWorld for Sandbox, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.26.47:553][178]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.47:577][178]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2022.01.05-23.26.47:584][178]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.26.47:605][178]LogAudio: Display: Audio Device unregistered from world 'None'.
+[2022.01.05-23.26.47:605][178]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.26.47:606][178]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.26.47:625][178]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.26.47:630][178]LogUObjectHash: Compacting FUObjectHashTables data took   2.20ms
+[2022.01.05-23.26.47:654][179]LogPlayLevel: Display: Destroying online subsystem :Context_44
+[2022.01.05-23.26.49:463][370]BlueprintLog: New page: Compile ChatboxMessage
+[2022.01.05-23.26.49:488][370]LogUObjectHash: Compacting FUObjectHashTables data took   2.36ms
+[2022.01.05-23.26.49:577][370]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessageDAC5D9BE407502754C866B9C7563B500.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.49:604][370]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.49:604][370]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.49:944][401]LogSavePackage: Moving '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Saved/ChatboxMessageE0CE62904F338D256E6D89A1006BDB83.tmp' to '../../../../../../Users/Tom/Documents/GitHub/rs-clone/unreal/OSRSClone/Content/Blueprints/UserInterface/ChatboxMessage.uasset'
+[2022.01.05-23.26.49:960][401]AssetCheck: New page: Asset Save: ChatboxMessage
+[2022.01.05-23.26.49:960][401]LogContentValidation: Display: Validating WidgetBlueprint /Game/Blueprints/UserInterface/ChatboxMessage.ChatboxMessage
+[2022.01.05-23.26.50:825][496]LogTemp: Repeating last play command: Selected Viewport
+[2022.01.05-23.26.50:836][496]LogPlayLevel: PlayLevel: No blueprints needed recompiling
+[2022.01.05-23.26.50:836][496]PIE: New page: PIE session: Sandbox (Jan 5, 2022, 1:26:50 PM)
+[2022.01.05-23.26.50:836][496]LogPlayLevel: Creating play world package: /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.26.50:860][496]LogPlayLevel: PIE: StaticDuplicateObject took: (0.024304s)
+[2022.01.05-23.26.50:861][496]LogAIModule: Creating AISystem for world Sandbox
+[2022.01.05-23.26.50:862][496]LogPlayLevel: PIE: World Init took: (0.001165s)
+[2022.01.05-23.26.50:862][496]LogPlayLevel: PIE: Created PIE world by copying editor world from /Game/Maps/Sandbox.Sandbox to /Game/Maps/UEDPIE_0_Sandbox.Sandbox (0.025616s)
+[2022.01.05-23.26.50:886][496]LogUObjectHash: Compacting FUObjectHashTables data took   2.73ms
+[2022.01.05-23.26.50:887][496]LogAudio: Display: Creating Audio Device:                 Id: 19, Scope: Unique, Realtime: True
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: Audio Mixer Platform Settings:
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Sample Rate:						  48000
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Callback Buffer Frame Size Requested: 1024
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Callback Buffer Frame Size To Use:	  1024
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Number of buffers to queue:			  2
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Max Channels (voices):				  32
+[2022.01.05-23.26.50:887][496]LogAudioMixer: Display: 	Number of Async Source Workers:		  0
+[2022.01.05-23.26.50:887][496]LogAudio: Display: AudioDevice MaxSources: 32
+[2022.01.05-23.26.50:888][496]LogAudio: Display: Using built-in audio occlusion.
+[2022.01.05-23.26.50:888][496]LogAudioMixer: Display: Initializing audio mixer.
+[2022.01.05-23.26.50:893][496]LogAudioMixer: Display: 0: FrontLeft
+[2022.01.05-23.26.50:893][496]LogAudioMixer: Display: 1: FrontRight
+[2022.01.05-23.26.50:899][496]LogAudioMixer: Display: Using Audio Device Speakers (Focusrite Usb Audio)
+[2022.01.05-23.26.50:899][496]LogAudioMixer: Display: Initializing Sound Submixes...
+[2022.01.05-23.26.50:899][496]LogAudioMixer: Display: Creating Master Submix 'MasterSubmixDefault'
+[2022.01.05-23.26.50:899][496]LogAudioMixer: Display: Creating Master Submix 'MasterReverbSubmixDefault'
+[2022.01.05-23.26.50:900][496]LogAudioMixer: Display: Creating Master Submix 'MasterEQSubmixDefault'
+[2022.01.05-23.26.50:900][496]LogAudioMixer: FMixerPlatformXAudio2::StartAudioStream() called
+[2022.01.05-23.26.50:900][496]LogAudioMixer: Display: Output buffers initialized: Frames=1024, Channels=2, Samples=2048
+[2022.01.05-23.26.50:914][496]LogAudioMixer: Display: Starting AudioMixerPlatformInterface::RunInternal()
+[2022.01.05-23.26.50:914][496]LogAudioMixer: Display: FMixerPlatformXAudio2::SubmitBuffer() called for the first time
+[2022.01.05-23.26.50:914][496]LogInit: FAudioDevice initialized.
+[2022.01.05-23.26.50:914][496]LogAudio: Display: Audio Device (ID: 19) registered with world 'Sandbox'.
+[2022.01.05-23.26.50:932][496]LogLoad: Game class is '_GameMode_C'
+[2022.01.05-23.26.50:937][496]LogWorld: Bringing World /Game/Maps/UEDPIE_0_Sandbox.Sandbox up for play (max tick rate 0) at 2022.01.05-18.26.50
+[2022.01.05-23.26.50:938][496]LogWorld: Bringing up level for play took: 0.004456
+[2022.01.05-23.26.50:943][496]LogOnline: OSS: Creating online subsystem instance for: :Context_45
+[2022.01.05-23.26.50:955][496]PIE: Server logged in
+[2022.01.05-23.26.50:956][496]PIE: Play in editor total start time 0.121 seconds.
+[2022.01.05-23.27.12:482][654]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.27.12:482][654]LogWorld: BeginTearingDown for /Game/Maps/UEDPIE_0_Sandbox
+[2022.01.05-23.27.12:482][654]LogWorld: UWorld::CleanupWorld for Sandbox, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.27.12:484][654]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.27.12:497][654]LogPlayLevel: Display: Shutting down PIE online subsystems
+[2022.01.05-23.27.12:503][654]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.27.12:523][654]LogSlate: Updating window title bar state: overlay mode, drag disabled, window buttons hidden, title bar hidden
+[2022.01.05-23.27.12:524][654]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.27.12:525][654]LogAudioMixer: FMixerPlatformXAudio2::StopAudioStream() called
+[2022.01.05-23.27.12:549][654]LogUObjectHash: Compacting FUObjectHashTables data took   2.16ms
+[2022.01.05-23.27.12:573][655]LogPlayLevel: Display: Destroying online subsystem :Context_45
+[2022.01.05-23.27.14:220][819]LogSlate: Window 'ChatboxMessage' being destroyed
+[2022.01.05-23.27.14:229][819]LogWorld: UWorld::CleanupWorld for World_38, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.27.14:230][819]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.27.14:241][819]LogWorld: UWorld::CleanupWorld for World_37, bSessionEnded=true, bCleanupResources=true
+[2022.01.05-23.27.14:242][819]LogSlate: InvalidateAllWidgets triggered.  All widgets were invalidated
+[2022.01.05-23.27.15:488][926]LogUObjectHash: Compacting FUObjectHashTables data took   2.34ms
